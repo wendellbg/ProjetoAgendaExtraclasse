@@ -1,0 +1,13 @@
+{
+    "name": "weuller/extra-classe",
+    "description": "projeto agenda extra classe para o ifg",
+    "type": "project",
+    "authors": [
+        {
+            "name": "weuller souza"
+        }
+    ],
+    "require": {
+        "ivmelo/suap-api-php": "1.0.*"
+    }
+}
