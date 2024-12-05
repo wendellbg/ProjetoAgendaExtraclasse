@@ -8,6 +8,5 @@
         }
     ],
     "require": {
-        "ivmelo/suap-api-php": "1.0.*"
     }
 }
