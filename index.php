@@ -4,7 +4,7 @@
 <head>
     <title>Login</title>
     <?php include_once 'global/php/head.php' ?>
-    <link rel="stylesheet" href="css/style.css">
+    
 </head>
 
 <body>

@@ -1,0 +1,134 @@
+@import "../../../global/css/variable.css";
+.container {
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 240px 1fr; /* Main ocupa o espaço restante, nav 240px */
+  grid-template-rows: auto 1fr; /* Header no topo e main+nav no restante */
+  grid-template-areas:
+    "header header"
+    "nav main ";
+}
+
+.Main-container {
+  margin-top: 80px;
+  margin-left: 100px;
+  grid-area: main;
+}
+/* header */
+header {
+  grid-area: header;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  background-color: var(--green-primary);
+  align-items: center;
+}
+.img-container {
+  background: #fff;
+  width: 240px;
+}
+img {
+  width: 50px;
+  padding: 10px;
+}
+
+.bell-container {
+  padding-right: 60px;
+}
+.bell-container i {
+  color: var(--gray-primary);
+}
+.bell-container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.notify {
+  display: none;
+  width: 350px;
+  box-shadow: var(--shadow);
+  background: #fff;
+  position: absolute;
+  top: 90px;
+  right: 10px;
+  color: black;
+  padding: 20px;
+  border-radius: 8px;
+  flex-flow: column;
+  gap: 10px;
+}
+.card-notify {
+  border-bottom: 2px solid var(--black);
+}
+.card-notify p {
+  padding: 10px;
+}
+
+/* nav */
+nav {
+  grid-area: nav;
+  background: var(--black);
+  display: flex;
+  flex-flow: column;
+  gap: 50px;
+  padding-top: 20px;
+}
+.user-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  margin: 0 auto;
+  gap: 10px;
+  border-bottom: 3px solid var(--gray-primary);
+}
+.user-container img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+.user-container p {
+  color: var(--gray-primary);
+}
+.navigation-container {
+  width: 220px;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+}
+.navigation-container li {
+  display: flex;
+}
+.navigation-container li>a {
+  width: 50%;
+  color: var(--gray-primary);
+  border-bottom: 3px solid var(--gray-primary);
+  padding: 5px;
+}
+.navigation-container li:hover>a {
+  width: 100%;
+  transition: 0.5s;
+}
+.button-exit-container {
+  width: 220px;
+  margin: 0 auto;
+}
+.button-exit-container #suap-logout-button {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gray-primary);
+}
+.button-exit-container #suap-logout-button:hover {
+  background: var(--gray-secondary);
+  color: #fff;
+}

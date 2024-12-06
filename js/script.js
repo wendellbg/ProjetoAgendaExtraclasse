@@ -79,7 +79,6 @@ const verifyToken = async (token) =>{
     }
 
     const json = await response.json();
-    console.log(json)
     window.location.href = "/pages/home";
   } catch (error) {
     console.error("Erro ao autenticar:", error.message);
