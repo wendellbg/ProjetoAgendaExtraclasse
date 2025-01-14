@@ -72,25 +72,29 @@ nav {
   background: var(--black);
   display: flex;
   flex-flow: column;
-  gap: 50px;
+  gap: 100px;
   padding-top: 20px;
 }
 .user-container {
   display: flex;
+  flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
   width: 220px;
   margin: 0 auto;
-  gap: 10px;
+  gap: 5px;
   border-bottom: 3px solid var(--gray-primary);
 }
 .user-container img {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
 }
 .user-container p {
   color: var(--gray-primary);
+  font-size: x-large;
+  padding: 10px;
 }
 .navigation-container {
   width: 220px;

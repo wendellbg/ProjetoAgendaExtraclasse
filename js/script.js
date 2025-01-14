@@ -58,8 +58,6 @@ function getCookie(name) {
   }
   return null;  
 }
-
-
 const verifyToken = async (token) =>{
   const url = 'https://suap.ifg.edu.br/api/v2/autenticacao/token/verify/';
   try {
