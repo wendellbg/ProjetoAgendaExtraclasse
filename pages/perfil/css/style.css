@@ -1,0 +1,59 @@
+@import "../../../global/css/variable.css";
+@import "../../../global/header/css/header.css";
+
+.perfil-container {
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+}
+h3 {
+  text-align: center;
+  color: var(--gray-secondary);
+}
+.perfil-container .input-perfil-container {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+
+  @media (max-width: 800px) {
+    grid-template-columns: auto;
+  }
+  gap: 50px;
+}
+
+.perfil-container .input-perfil-container label {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+.perfil-container .input-perfil-container label > span {
+  color: var(--black);
+}
+
+.perfil-container label > input {
+  border: 1px solid var(--gray-primary);
+  background: #fff;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.button-perfil-container {
+  display: flex;
+  justify-content: end;
+}
+.button-perfil-container .button-perfil {
+  border: none;
+  padding: 10px 100px;
+  border-radius: 32px;
+  background: var(--green-secondary);
+  color: var(--black);
+  cursor: pointer;
+}
+.button-perfil-container .button-perfil:hover {
+  background: var(--green-primary);
+  color: var(--gray-primary);
+}

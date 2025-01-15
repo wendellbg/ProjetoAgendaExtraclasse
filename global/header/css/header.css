@@ -13,6 +13,7 @@
 .Main-container {
   margin-top: 80px;
   margin-left: 100px;
+  margin-bottom: 80px;
   grid-area: main;
 }
 /* header */
@@ -72,7 +73,7 @@ nav {
   background: var(--black);
   display: flex;
   flex-flow: column;
-  gap: 100px;
+  gap: 60px;
   padding-top: 20px;
 }
 .user-container {

@@ -32,7 +32,7 @@ if (file_exists($filePath)) {
     // Se o arquivo não existir, exibe uma mensagem ou define valores padrão
     $userData = [
         'nome_usual' => 'Usuário Desconhecido',
-        'url_foto_150x200' => '../../assets/img/imageTest.jpeg'
+        'url_foto_150x200' => '../../assets/img/noImage.png'
     ];
 }
 ?>
@@ -43,7 +43,8 @@ if (file_exists($filePath)) {
     </div>
     <!-- adicionar mais links pras paginas conforme for colocando mais -->
     <ul class="navigation-container">
-        <li><a href="/pages/home" class="subtitle">home</a></li>
+        <li><a href="/pages/home" class="subtitle">Home</a></li>
+        <li><a href="/pages/perfil" class="subtitle">Perfil</a></li>
     </ul>
 
     <div class="button-exit-container">
