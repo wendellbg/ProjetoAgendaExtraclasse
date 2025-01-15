@@ -1,2 +1,48 @@
 @import "../../../global/css/variable.css";
 @import "../../../global/header/css/header.css";
+
+.card-container {
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns:repeat(auto-fill,250px);
+  gap: 40px;
+}
+.card-container .card {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0px;
+  align-items: center;
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+}
+.img-home-container {
+  width: 90%;
+  border-bottom: 3px solid var(--black);
+}
+.img-home-container img {
+  width: 100%;
+  object-fit: cover;
+  padding: 0px;
+}
+
+.card h3 {
+color: var(--black);
+}
+.card p {
+  color: var(--black);
+}
+.card button {
+  background:var(--green-secondary);
+  border:none;
+  color: var(--black);
+  padding: 5px 30px;
+  border-radius: 32px;
+  cursor: pointer;
+}
+.card button:hover{
+  background:var(--green-primary);
+  color: var(--gray-primary);
+}
