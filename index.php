@@ -5,7 +5,7 @@
     <title>Login</title>
     <?php include_once 'global/php/head.php' ?>
     <link rel="stylesheet" href="./css/style.css">
-    
+
 </head>
 
 <body>
@@ -25,9 +25,32 @@
 
         <div class="button-container">
             <button type="submit" class="subtitle">Login</button>
+            <p class="paragraph">Primeiro login? <a class="paragraph" id="suap-login-button">clique aqui</a></p>
         </div>
     </form>
     <script src="js/script.js"></script>
+    <script src="/suap/client.js"></script>
+    <script src="/suap/js.cookie.js"></script>
+    <script src="/suap/settings.js"></script>
+
+    <script>
+        var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
+        suap.init();
+        $(document).ready(function() {
+            $("#suap-login-button").attr('href', suap.getLoginURL());
+            if (suap.isAuthenticated()) {
+                $('.is-authenticated').removeClass("is-hidden");
+                $('#token').text(suap.getToken().getValue());
+                $('#validade_token').text(suap.getToken().getExpirationTime());
+                $("#escopos_autorizados").text(suap.getToken().getScope());
+                $("#escopos").val(suap.getToken().getScope());
+            } else {
+                $('.is-anonymous').removeClass("is-hidden");
+            }
+        });
+        
+        
+    </script>
 </body>
 
 </html>

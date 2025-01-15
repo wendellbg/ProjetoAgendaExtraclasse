@@ -19,27 +19,27 @@
 <nav>
     <div class="user-container">
         <?php
-// Caminho para o arquivo JSON
-$filePath = '../../global/data/data.json';
+        // Caminho para o arquivo JSON
+        $filePath = '../../global/data/data.json';
 
-// Verifica se o arquivo existe
-if (file_exists($filePath)) {
-    // Lê o conteúdo do arquivo
-    $jsonData = file_get_contents($filePath);
-    // Decodifica o JSON em um array associativo
-    $userData = json_decode($jsonData, true);
-} else {
-    // Se o arquivo não existir, exibe uma mensagem ou define valores padrão
-    $userData = [
-        'nome_usual' => 'Usuário Desconhecido',
-        'url_foto_150x200' => '../../assets/img/noImage.png'
-    ];
-}
-?>
+        // Verifica se o arquivo existe
+        if (file_exists($filePath)) {
+            // Lê o conteúdo do arquivo
+            $jsonData = file_get_contents($filePath);
+            // Decodifica o JSON em um array associativo
+            $userData = json_decode($jsonData, true);
+        } else {
+            // Se o arquivo não existir, exibe uma mensagem ou define valores padrão
+            $userData = [
+                'nome_usual' => 'Usuário Desconhecido',
+                'url_foto_150x200' => '../../assets/img/noImage.png'
+            ];
+        }
+        ?>
 
 
         <p class="paragraph"><?php echo htmlspecialchars($userData['nome_usual']); ?></p>
-        <img src="<?php echo "https://suap.ifg.edu.br/".htmlspecialchars($userData['url_foto_150x200']) ?>" alt="user-image">
+        <img src="<?php echo "https://suap.ifg.edu.br/" . htmlspecialchars($userData['url_foto_150x200']) ?>" alt="user-image">
     </div>
     <!-- adicionar mais links pras paginas conforme for colocando mais -->
     <ul class="navigation-container">
@@ -50,6 +50,7 @@ if (file_exists($filePath)) {
     <div class="button-exit-container">
         <button id="suap-logout-button" class="paragraph"> <i class="fa-solid fa-user-minus"></i> <span class="subtitle">sair</span></button>
     </div>
+    <button id="suap-resource-button">teste</button>
 </nav>
 
 <!-- script que abre e fecha a notificação -->
@@ -65,28 +66,24 @@ if (file_exists($filePath)) {
         }
     })
 </script>
+<script src="../../suap/client.js"></script>
+<script src="../../suap/js.cookie.js"></script>
+<script src="../../suap/settings.js"></script>
 <!-- script pra receber os dados do usuario do suap -->
 <script>
-    function getCookie(name) {
-        const cookieArr = document.cookie.split(";");
-        for (let i = 0; i < cookieArr.length; i++) {
-            let cookie = cookieArr[i].trim();
-            if (cookie.startsWith(name + "=")) {
-                return cookie.substring(name.length + 1);
-            }
+    $("#suap-resource-button").click(function() {
+        if (suap.isAuthenticated()) {
+            var scope = $("#escopos").val();
+            var callback = function(response) {
+                console.log(response)
+            };
+            suap.getResource(scope, callback);
         }
-        return null;
-    }
+    });
 
 
-
-//delete cookie e função pra sair
-    function deleteCookie(cookieName) {
-        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    }
-
+    var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
     $("#suap-logout-button").click(function() {
-        deleteCookie('token');
-        window.location.href = "/";
+        suap.logout();
     });
 </script>

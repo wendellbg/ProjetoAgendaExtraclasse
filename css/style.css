@@ -52,9 +52,11 @@ img {
   border-bottom: 1px solid var(--black);
   padding: 2px;
 }
-.button-container a {
+.button-container p > a {
+  cursor: pointer;
   color: var(--green-secondary);
 }
+
 .button-container button {
   background: var(--green-secondary);
   color: var(--gray-primary);
