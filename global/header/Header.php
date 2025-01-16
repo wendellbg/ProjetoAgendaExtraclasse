@@ -19,17 +19,17 @@
 <nav>
     <div class="user-container">
         <?php
-        // Caminho para o arquivo JSON
+
         $filePath = '../../global/data/data.json';
 
-        // Verifica se o arquivo existe
+
         if (file_exists($filePath)) {
-            // Lê o conteúdo do arquivo
+
             $jsonData = file_get_contents($filePath);
-            // Decodifica o JSON em um array associativo
+
             $userData = json_decode($jsonData, true);
         } else {
-            // Se o arquivo não existir, exibe uma mensagem ou define valores padrão
+
             $userData = [
                 'nome_usual' => 'Usuário Desconhecido',
                 'url_foto_150x200' => '../../assets/img/noImage.png'

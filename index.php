@@ -68,6 +68,7 @@
                                     url_foto_150x200: data.url_foto_150x200,
                                     curso: data.vinculo.curso,
                                     nome: data.vinculo.nome,
+
                                 };
                                 return objFilter;
                             };
@@ -87,7 +88,7 @@
         // enviar os dados do suap pro arquivo user.data.php pra futuramente guardar no banco de dados de login
         const saveUserData = (data) => {
             $.ajax({
-                url: "/global/data/user.data.php",
+                url: "/global/data/user.post.php",
                 method: "POST",
                 data: data,
                 success: function(response) {
