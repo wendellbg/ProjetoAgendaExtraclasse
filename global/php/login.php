@@ -10,6 +10,6 @@ if (file_exists($filePath)) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($data['matricula'] === $_POST['matricula'] && $data['senha'] === $_POST['senha']) {
-        header('Location: /pages/perfil');
+        header('Location: /pages/home');
     }
 }
