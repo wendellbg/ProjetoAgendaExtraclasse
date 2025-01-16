@@ -50,7 +50,6 @@
     <div class="button-exit-container">
         <button id="suap-logout-button" class="paragraph"> <i class="fa-solid fa-user-minus"></i> <span class="subtitle">sair</span></button>
     </div>
-    <button id="suap-resource-button">teste</button>
 </nav>
 
 <!-- script que abre e fecha a notificação -->
@@ -71,19 +70,9 @@
 <script src="../../suap/settings.js"></script>
 <!-- script pra receber os dados do usuario do suap -->
 <script>
-    $("#suap-resource-button").click(function() {
-        if (suap.isAuthenticated()) {
-            var scope = $("#escopos").val();
-            var callback = function(response) {
-                console.log(response)
-            };
-            suap.getResource(scope, callback);
-        }
-    });
-
-
     var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
+    suap.init();
     $("#suap-logout-button").click(function() {
-        suap.logout();
+        suap.logout()
     });
 </script>
