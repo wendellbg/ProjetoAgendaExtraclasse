@@ -9,17 +9,17 @@
 </head>
 
 <body>
-    <form class="login-form">
+    <form class="login-form" method="POST" action="./global/php/login.php">
         <img src="./assets/img/logo_ifg.png" alt="logo ifg">
         <div class="inputs_container">
             <label class="label-container">
                 <span class="paragraph">Matrícula</span>
-                <input id="login" type="text" class="paragraph">
+                <input id="login" type="text" class="paragraph" name="matricula">
             </label>
 
             <label class="label-container">
                 <span class="paragraph">Senha</span>
-                <input id="password" type="password" class="paragraph">
+                <input id="password" type="password" class="paragraph" name="senha">
             </label>
         </div>
 
@@ -28,11 +28,12 @@
             <p class="paragraph">Primeiro login? <a class="paragraph" id="suap-login-button">clique aqui</a></p>
         </div>
     </form>
-    <script src="js/script.js"></script>
     <script src="/suap/client.js"></script>
     <script src="/suap/js.cookie.js"></script>
     <script src="/suap/settings.js"></script>
 
+
+    <!-- login pelo suap -->
     <script>
         var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
         suap.init();
@@ -100,6 +101,7 @@
             });
         };
     </script>
+
 </body>
 
 </html>

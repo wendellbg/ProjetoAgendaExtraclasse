@@ -73,6 +73,10 @@
     var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
     suap.init();
     $("#suap-logout-button").click(function() {
-        suap.logout()
+        if(suap.isAuthenticated()){
+            suap.logout()
+        }else{
+           window.location.href='/'
+        }
     });
 </script>
