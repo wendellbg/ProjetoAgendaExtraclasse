@@ -1,6 +1,6 @@
 <?php
 //alterar isso futuramente quando tiver banco de dados
-$filePath = '../data/data.json';
+$filePath = '../global/data/data.json';
 $data = [];
 
 if (file_exists($filePath)) {

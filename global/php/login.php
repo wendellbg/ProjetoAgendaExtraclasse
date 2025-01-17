@@ -12,4 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($data['matricula'] === $_POST['matricula'] && $data['senha'] === $_POST['senha']) {
         header('Location: /pages/home');
     }
+    else{
+        header('Location: /');
+    }
 }

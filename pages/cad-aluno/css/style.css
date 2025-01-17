@@ -1,0 +1,68 @@
+@import "../../../global/css/variable.css";
+@import "../../../global/header/css/header.css";
+
+.cadastro-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.form-cadastro {
+  width: 600px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.cad-title {
+  background: var(--green-primary);
+  color: var(--gray-primary);
+  text-align: center;
+  padding: 10px 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.form-cadastro .cad-input-container {
+  display: grid;
+  padding: 20px;
+  @media (max-width: 800px) {
+    grid-template-columns: auto;
+  }
+  gap: 50px;
+}
+
+.form-cadastro .cad-input-container label {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+.form-cadastro .cad-input-container label > span {
+  color: var(--black);
+}
+
+.form-cadastro label > input {
+  border: 1px solid var(--gray-primary);
+  background: #fff;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.button-perfil-container {
+  display: flex;
+  justify-content: end;
+  padding: 20px;
+}
+.button-perfil-container .button-perfil {
+  border: none;
+  padding: 10px 100px;
+  border-radius: 32px;
+  background: var(--green-secondary);
+  color: var(--black);
+  cursor: pointer;
+}
+.button-perfil-container .button-perfil:hover {
+  background: var(--green-primary);
+  color: var(--gray-primary);
+}
