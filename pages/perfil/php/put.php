@@ -2,6 +2,7 @@
 // alterar isso futuramente quando tiver banco de dados
 $filePath = '../../../global/data/data.json';
 $data = [];
+session_start();
 if (file_exists($filePath)) {
     $json = file_get_contents($filePath);
     $data = json_decode($json, true) ?? [];
@@ -30,5 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Erro ao salvar os dados: " . $e->getMessage();
     }
     $data = $updatedData;
-    header('Location: /pages/home');
+    if (isset($data['tipo_vinculo'])) {
+        $_SESSION['tipo_vinculo'] = $data['tipo_vinculo'];
+        header('Location: /pages/home');
+    }
 }

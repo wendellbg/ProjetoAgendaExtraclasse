@@ -72,11 +72,18 @@
 <script>
     var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
     suap.init();
+
+    function deletarCookie(nome) {
+        document.cookie = nome + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    }
+
     $("#suap-logout-button").click(function() {
-        if(suap.isAuthenticated()){
+        if (suap.isAuthenticated()) {
+            deletarCookie('PHPSESSID')
             suap.logout()
-        }else{
-           window.location.href='/'
+        } else {
+            deletarCookie('PHPSESSID')
+            window.location.href = '/'
         }
     });
 </script>

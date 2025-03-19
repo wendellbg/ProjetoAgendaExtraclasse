@@ -1,4 +1,5 @@
 <?php
+session_start();
 //alterar isso futuramente quando tiver banco de dados
 $filePath = '../global/data/data.json';
 $data = [];
@@ -32,6 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'senha' => $_POST['senha'] ?? $data['senha'],
             'telefone' => $_POST['telefone'] ?? $data['telefone'],
         ];
+        if (isset($_POST['tipo_vinculo'])) {
+            $_SESSION['tipo_vinculo'] = $_POST['tipo_vinculo'];
+        }
     } else {
         $updatedData = [
             'data_nascimento' => $_POST['data_nascimento'] ?? $data['data_nascimento'],
@@ -46,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'senha' => $_POST['senha'] ?? null,
             'telefone' => $_POST['telefone'] ?? null,
         ];
+        if (isset($_POST['tipo_vinculo'])) {
+            $_SESSION['tipo_vinculo'] = $_POST['tipo_vinculo'];
+        }
     }
 
     try {

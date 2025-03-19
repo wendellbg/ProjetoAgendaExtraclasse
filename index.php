@@ -75,7 +75,6 @@
                             };
 
                             saveUserData(dataFilter(data));
-                            console.log(data)
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.error('Erro na requisição:', textStatus, errorThrown);

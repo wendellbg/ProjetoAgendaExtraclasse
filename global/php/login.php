@@ -1,4 +1,5 @@
 <?php
+session_start();
 // alterar isso futuramente quando tiver banco de dados
 /* fake login com os dados dentro do data.json */
 $filePath = '../data/data.json';
@@ -10,9 +11,11 @@ if (file_exists($filePath)) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($data['matricula'] === $_POST['matricula'] && $data['senha'] === $_POST['senha']) {
-        header('Location: /pages/home');
-    }
-    else{
+        if (isset($data['tipo_vinculo'])) {
+            $_SESSION['tipo_vinculo'] = $data['tipo_vinculo'];
+            header('Location: /pages/home');
+        }
+    } else {
         header('Location: /');
     }
 }
