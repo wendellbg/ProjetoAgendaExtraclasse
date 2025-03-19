@@ -2,14 +2,14 @@
 @import "../../../global/header/css/header.css";
 
 .perfil-container {
-  max-width: 900px;
-  margin: 0 auto;
+  max-width: 90%;
   box-shadow: var(--shadow);
-  padding: 20px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 50px;
-  justify-content: center;
+  border: 1px solid var(--gray-primary);
+  
 }
 h3 {
   text-align: center;

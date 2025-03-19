@@ -19,11 +19,11 @@
             <section class="card-container">
 
                 <?php
-                session_start();
+                
                 $filePath = '../../global/data/perfil.mock.json';
                 $jsonData = file_get_contents($filePath);
                 $materias = json_decode($jsonData, true);
-                if (isset($_SESSION['tipo_vinculo'])) {
+              
                     if (strtolower($_SESSION['tipo_vinculo']) == strtolower('aluno')) {
                         foreach ($materias as $materia) {
                 ?>
@@ -39,9 +39,7 @@
                 <?php
                         }
                     }
-                } else {
-                    header('Location: /');
-                }
+                 
                 ?>
             </section>
         </Main>

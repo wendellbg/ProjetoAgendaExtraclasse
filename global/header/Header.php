@@ -1,57 +1,67 @@
-<header>
-    <div class="img-container">
-        <img src="/assets/img/logo_ifg.png" alt="logo ifg">
-    </div>
-
-    <div class="bell-container">
-        <button id="button-bell">
-            <i class="fa-solid fa-bell fa-2xl"></i>
-        </button>
-        <div class="notify">
-            <!-- cards que vão receber a notificação -->
-            <div class="card-notify">
-                <p class="paragraph"><?php echo "Notificação placeholder"; ?></p>
-            </div>
-
+<?php
+session_start();
+if (isset($_SESSION['tipo_vinculo'])) {
+?>
+    <header>
+        <div class="img-container">
+            <img src="/assets/img/logo_ifg.png" alt="logo ifg">
         </div>
-    </div>
-</header>
-<nav>
-    <div class="user-container">
-        <?php
 
-        $filePath = '../../global/data/data.json';
+        <div class="bell-container">
+            <button id="button-bell">
+                <i class="fa-solid fa-bell fa-2xl"></i>
+            </button>
+            <div class="notify">
+                <!-- cards que vão receber a notificação -->
+                <div class="card-notify">
+                    <p class="paragraph"><?php echo "Notificação placeholder"; ?></p>
+                </div>
 
-
-        if (file_exists($filePath)) {
-
-            $jsonData = file_get_contents($filePath);
-
-            $userData = json_decode($jsonData, true);
-        } else {
-
-            $userData = [
-                'nome_usual' => 'Usuário Desconhecido',
-                'url_foto_150x200' => '../../assets/img/noImage.png'
-            ];
-        }
-        ?>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <div class="user-container">
+            <?php
 
 
-        <p class="paragraph"><?php echo htmlspecialchars($userData['nome_usual']); ?></p>
-        <img src="<?php echo "https://suap.ifg.edu.br/" . htmlspecialchars($userData['url_foto_150x200']) ?>" alt="user-image">
-    </div>
-    <!-- adicionar mais links pras paginas conforme for colocando mais -->
-    <ul class="navigation-container">
-        <li><a href="/pages/home" class="subtitle">Home</a></li>
-        <li><a href="/pages/perfil" class="subtitle">Perfil</a></li>
-    </ul>
+            $filePath = '../../global/data/data.json';
 
-    <div class="button-exit-container">
-        <button id="suap-logout-button" class="paragraph"> <i class="fa-solid fa-user-minus"></i> <span class="subtitle">sair</span></button>
-    </div>
-</nav>
 
+            if (file_exists($filePath)) {
+
+                $jsonData = file_get_contents($filePath);
+
+                $userData = json_decode($jsonData, true);
+            } else {
+
+                $userData = [
+                    'nome_usual' => 'Usuário Desconhecido',
+                    'url_foto_150x200' => '../../assets/img/noImage.png'
+                ];
+            }
+            ?>
+
+
+            <p class="paragraph"><?php echo htmlspecialchars($userData['nome_usual']); ?></p>
+            <img src="<?php echo "https://suap.ifg.edu.br/" . htmlspecialchars($userData['url_foto_150x200']) ?>" alt="user-image">
+        </div>
+        <!-- adicionar mais links pras paginas conforme for colocando mais -->
+        <ul class="navigation-container">
+            <li><a href="/pages/home" class="subtitle">Home</a></li>
+            <li><a href="/pages/perfil" class="subtitle">Perfil</a></li>
+        </ul>
+
+        <div class="button-exit-container">
+            <button id="suap-logout-button" class="paragraph"> <i class="fa-solid fa-user-minus"></i> <span class="subtitle">sair</span></button>
+        </div>
+    </nav>
+<?php
+} else {
+    header('Location: /');
+}
+
+?>
 <!-- script que abre e fecha a notificação -->
 <script>
     let notify = document.querySelector('.notify')
