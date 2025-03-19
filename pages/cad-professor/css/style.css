@@ -1,0 +1,116 @@
+@import "../../../global/css/variable.css";
+@import "../../../global/header/css/header.css";
+/* grid-template-areas: */
+/* grid-area: nome; */
+.form-prof {
+  display: grid;
+  width: 600px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-primary);
+  gap: 50px;
+  padding: 40px;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas:
+    "materia materia"
+    "data curso"
+    "foto foto"
+    "botao botao";
+}
+.materia {
+  grid-area: materia;
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+span {
+  color: var(--black);
+}
+
+input,
+select {
+  border: 1px solid var(--gray-primary);
+  background: #fff;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.data {
+  grid-area: data;
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.data > button {
+  border: none;
+  color: var(--green-secondary);
+  background: none;
+  cursor: pointer;
+  font-size: 30px;
+}
+.curso {
+  grid-area: curso;
+  width: 100%;
+  display: grid;
+  gap: 5px;
+}
+.curso > select {
+  width: 100%;
+}
+.botao-container {
+  grid-area: botao;
+  text-align: end;
+}
+.botao-container > .button-form {
+  border: none;
+  padding: 10px 50px;
+  border-radius: 32px;
+  background: var(--green-secondary);
+  color: var(--black);
+  cursor: pointer;
+}
+.botao-container > .button-form:hover {
+  background: var(--green-primary);
+  color: var(--gray-primary);
+}
+
+.foto {
+  grid-area: foto;
+  margin: auto;
+}
+
+.img-label {
+  width: 400px;
+  @media (max-width: 600px) {
+    width: 300px;
+  }
+  aspect-ratio: 16/9;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  border: 2px dashed currentColor;
+  cursor: pointer;
+  transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+
+  #img {
+    width: 250px;
+    text-align: center;
+  }
+  .img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.img-label:hover {
+  color: #999;
+  background: #ccc;
+}
+input[type="file"] {
+  display: none;
+}

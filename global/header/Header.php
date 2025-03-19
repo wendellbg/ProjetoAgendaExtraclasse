@@ -50,6 +50,7 @@ if (isset($_SESSION['tipo_vinculo'])) {
         <ul class="navigation-container">
             <li><a href="/pages/home" class="subtitle">Home</a></li>
             <li><a href="/pages/perfil" class="subtitle">Perfil</a></li>
+            <li><a href="/pages/cad-professor" class="subtitle">Cadastro</a></li>
         </ul>
 
         <div class="button-exit-container">
