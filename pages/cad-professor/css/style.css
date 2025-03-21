@@ -2,6 +2,11 @@
 @import "../../../global/header/css/header.css";
 /* grid-template-areas: */
 /* grid-area: nome; */
+
+.container-prof {
+  display: flex;
+  gap: 50px;
+}
 .form-prof {
   display: grid;
   width: 600px;
@@ -44,13 +49,14 @@ select {
   align-items: center;
 }
 
-.data > button {
+.btn-prof {
   border: none;
   color: var(--green-secondary);
   background: none;
   cursor: pointer;
   font-size: 30px;
 }
+
 .curso {
   grid-area: curso;
   width: 100%;
@@ -113,4 +119,76 @@ select {
 }
 input[type="file"] {
   display: none;
+}
+
+.form-dia {
+  display: flex;
+}
+
+.close {
+  border: none;
+  color: red;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#my-dialog {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-areas: "title" "input" "data" "botao";
+  width: 600px;
+  height: fit-content;
+  gap: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-primary);
+  border-radius: 8px;
+}
+
+.title-data {
+  grid-area: title;
+  background-color: var(--green-primary);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.title-data > h3 {
+  color: var(--gray-primary);
+}
+
+.form-dia {
+  grid-area: input;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.dia-container {
+  grid-area: data;
+  padding: 20px;
+}
+#my-dialog > .botao-container {
+  grid-area: botao;
+  padding: 20px;
+}
+#listaDias {
+  display: flex;
+  gap: 20px;
+}
+.remover-dia {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #85a2cd;
+}
+.dia-semana-li {
+  border: 1px solid #85a2cd;
+  color: #85a2cd;
+  background: rgb(132, 161, 205, 0.2);
+  padding: 5px 10px;
+  border-radius: 32px;
 }
