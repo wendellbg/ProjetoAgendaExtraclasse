@@ -1,38 +1,4 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $materia = $_POST['materia'] ?? '';
-    $curso = $_POST['curso'] ?? '';
-    $dia = $_POST['dia'] ?? '[]';
-    $img = $_POST['imageName'];
-    $filePath = 'dados.json';
-
-    $novoDado = [
-        'materia' => $materia,
-        'curso' => $curso,
-        'image' => $img,
-        'dia' => json_decode($dia, true),
-    ];
-
-    // Verifica se o arquivo já existe e lê os dados anteriores
-    if (file_exists($filePath)) {
-        $dadosAnteriores = json_decode(file_get_contents($filePath), true);
-        if (!is_array($dadosAnteriores)) {
-            $dadosAnteriores = [];
-        }
-    } else {
-        $dadosAnteriores = [];
-    }
-
-    $dadosAnteriores[] = $novoDado;
-
-    file_put_contents($filePath, json_encode($dadosAnteriores,  JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-    echo "Dados salvos com sucesso!";
-} else {
-    echo "Método inválido.";
-}
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'])) {
 
     $imgBase64 = $_POST['image'];
@@ -48,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'])) {
             echo "Erro ao decodificar a imagem base64.";
             exit;
         }
+        $imageName = 'imagem_' . uniqid() . '.' . $matches[1];
 
-
-        $fileName = 'imagem/' . $img;
+        $fileName = 'imagem/' . $imageName;
 
 
         if (!file_exists('imagem')) {
@@ -68,4 +34,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'])) {
     }
 } else {
     echo "Nenhuma imagem recebida.";
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $materia = $_POST['materia'] ?? '';
+    $curso = $_POST['curso'] ?? '';
+    $dia = $_POST['dia'] ?? '[]';
+    $filePath = 'dados.json';
+
+    $novoDado = [
+        'materia' => $materia,
+        'curso' => $curso,
+        'image' => $imageName,
+        'dia' => json_decode($dia, true),
+    ];
+
+    if (file_exists($filePath) && $imageName) {
+        $dadosAnteriores = json_decode(file_get_contents($filePath), true);
+        if (!is_array($dadosAnteriores)) {
+            $dadosAnteriores = [];
+        }
+    } else {
+        $dadosAnteriores = [];
+    }
+
+    $dadosAnteriores[] = $novoDado;
+
+    file_put_contents($filePath, json_encode($dadosAnteriores,  JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+    echo "Dados salvos com sucesso!";
+} else {
+    echo "Método inválido.";
 }
