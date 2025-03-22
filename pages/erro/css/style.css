@@ -1,0 +1,12 @@
+@import "../../../global/css/variable.css";
+@import "../../../global/header/css/header.css";
+
+.img-erro-container {
+  max-width: 1200px;
+  width: 80%;
+  margin: auto;
+}
+.erro-img {
+  width: 100%;
+  object-fit: cover;
+}

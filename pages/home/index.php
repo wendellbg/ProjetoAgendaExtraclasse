@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <?php include '../../global/php/head.php' ?>
@@ -17,29 +17,33 @@
 
         <Main class="Main-container">
             <section class="card-container">
+                <?php
+
+                if (strtolower($_SESSION['tipo_vinculo'] ?? '') !== strtolower('aluno')) {
+                    echo "<script>window.location.href='/pages/erro';</script>";
+                    exit();
+                }
+                ?>
 
                 <?php
-                
+
                 $filePath = '../../global/data/perfil.mock.json';
                 $jsonData = file_get_contents($filePath);
                 $materias = json_decode($jsonData, true);
-              
-                    if (strtolower($_SESSION['tipo_vinculo']) == strtolower('aluno')) {
-                        foreach ($materias as $materia) {
+                foreach ($materias as $materia) {
                 ?>
-                            <div class="card">
-                                <div class="img-home-container">
-                                    <img src="<?= htmlspecialchars($materia['imagem']) ?>" alt="imagem da matéria escolhida">
-                                </div>
-                                <h3 class="subtitle"><?= htmlspecialchars($materia['nome_materia']) ?></h3>
-                                <p class="paragraph"><?= htmlspecialchars($materia['nome_professor']) ?></p>
-                                <button class="subtitle" onclick="window.location.href='/pages/cad-aluno/index.php?id=<?= $materia['id'] ?>'">Agendar</button>
+                    <div class="card">
+                        <div class="img-home-container">
+                            <img src="<?= htmlspecialchars($materia['imagem']) ?>" alt="imagem da matéria escolhida">
+                        </div>
+                        <h3 class="subtitle"><?= htmlspecialchars($materia['nome_materia']) ?></h3>
+                        <p class="paragraph"><?= htmlspecialchars($materia['nome_professor']) ?></p>
+                        <button class="subtitle" onclick="window.location.href='/pages/cad-aluno/index.php?id=<?= $materia['id'] ?>'">Agendar</button>
 
-                            </div>
+                    </div>
                 <?php
-                        }
-                    }
-                 
+                }
+
                 ?>
             </section>
         </Main>
