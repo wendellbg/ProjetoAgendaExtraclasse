@@ -1,2 +1,45 @@
 @import "../../../global/css/variable.css";
 @import "../../../global/header/css/header.css";
+
+.form-mediador {
+  display: grid;
+  width: 600px;
+  gap: 40px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-primary);
+  padding: 20px;
+}
+label {
+  display: grid;
+  gap: 5px;
+}
+span {
+  color: var(--black);
+}
+
+input,
+select {
+  border: 1px solid var(--gray-primary);
+  background: #fff;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-container  > .button-form {
+  border: none;
+  padding: 10px 100px;
+  border-radius: 32px;
+  background: var(--green-secondary);
+  color: var(--black);
+  cursor: pointer;
+}
+.button-container  > .button-form:hover {
+  background: var(--green-primary);
+  color: var(--gray-primary);
+}

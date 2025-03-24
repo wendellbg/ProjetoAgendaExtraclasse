@@ -187,8 +187,6 @@
         formData.append("dia", JSON.stringify(diasSelecionados));
         formData.append('imageName', file.name)
 
-        console.log(file.name);
-
         $.ajax({
             url: "./php/prof.post.php",
             method: "POST",

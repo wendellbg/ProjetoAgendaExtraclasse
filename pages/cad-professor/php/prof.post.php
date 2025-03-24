@@ -16,11 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'])) {
         }
         $imageName = 'imagem_' . uniqid() . '.' . $matches[1];
 
-        $fileName = 'imagem/' . $imageName;
+        $fileName = '../../../global/data/imagem/' . $imageName;
 
 
-        if (!file_exists('imagem')) {
-            mkdir('imagem', 0777, true);
+        if (!file_exists('../../../global/data/imagem')) {
+            mkdir('../../../global/data/imagem', 0777, true);
         }
 
 
@@ -39,13 +39,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $materia = $_POST['materia'] ?? '';
     $curso = $_POST['curso'] ?? '';
     $dia = $_POST['dia'] ?? '[]';
-    $filePath = 'dados.json';
+    $filePath = '../../../global/data/professor.data.json';
+    $fileNamePath = '../../../global/data/data.json';
+
+
+    if (file_exists($fileNamePath)) {
+
+        $jsonData = file_get_contents($fileNamePath);
+
+        $userData = json_decode($jsonData, true);
+    }
 
     $novoDado = [
         'materia' => $materia,
         'curso' => $curso,
         'image' => $imageName,
         'dia' => json_decode($dia, true),
+        'nome_professor' => $userData['nome']
     ];
 
     if (file_exists($filePath) && $imageName) {
