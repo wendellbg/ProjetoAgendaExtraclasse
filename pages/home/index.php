@@ -2,7 +2,8 @@
 <html lang="pt-br">
 
 <head>
-    <?php include '../../global/php/head.php' ?>
+    <?php include '../../global/php/head.php';
+    ?>
     <link rel="stylesheet" href="./css/style.css">
     <title>Home</title>
 
@@ -17,12 +18,11 @@
 
         <Main class="Main-container">
             <section class="card-container">
+                <!-- guard -->
                 <?php
-
-                if (strtolower($_SESSION['tipo_vinculo'] ?? '') !== strtolower('aluno')) {
-                    echo "<script>window.location.href='/pages/erro';</script>";
-                    exit();
-                }
+                include '../../global/php/guard.php';
+                $value = ['aluno', 'professor', 'mediador'];
+                guard($value);
                 ?>
 
                 <?php
