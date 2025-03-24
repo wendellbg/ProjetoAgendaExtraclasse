@@ -1,6 +1,11 @@
 @import "../../../global/css/variable.css";
 @import "../../../global/header/css/header.css";
 
+.mediador-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
 .form-mediador {
   display: grid;
   width: 600px;
@@ -31,7 +36,7 @@ select {
   justify-content: flex-end;
 }
 
-.button-container  > .button-form {
+.button-container > .button-form {
   border: none;
   padding: 10px 100px;
   border-radius: 32px;
@@ -39,7 +44,29 @@ select {
   color: var(--black);
   cursor: pointer;
 }
-.button-container  > .button-form:hover {
+.button-container > .button-form:hover {
   background: var(--green-primary);
   color: var(--gray-primary);
+}
+
+table {
+  width: 90%;
+  box-shadow: var(--shadow);
+}
+caption{
+  background: var(--green-primary);
+  color: var(--gray-primary);
+  text-align: center;
+
+  padding: 10px;
+}
+
+th {
+  padding: 10px;
+  border: 1px solid #b9b2b2;
+  text-align: center;
+}
+td {
+  text-align: center;
+  border: 1px solid #b9b2b2;
 }

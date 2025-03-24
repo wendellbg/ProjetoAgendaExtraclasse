@@ -18,12 +18,28 @@
   grid-template-columns: 1fr 2fr;
   grid-template-areas:
     "materia materia"
+    "horario horario"
+    "local_inp local_inp"
     "data curso"
     "foto foto"
     "botao botao";
 }
 .materia {
   grid-area: materia;
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+.horario {
+  grid-area: horario;
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+.local {
+  grid-area: local_inp;
   width: 100%;
   display: grid;
   gap: 10px;

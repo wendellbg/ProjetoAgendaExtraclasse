@@ -59,11 +59,20 @@ function processPDF($filePath)
     $pdf = $parser->parseFile($filePath);
     $text = $pdf->getText();
 
-    // Chama a função de extração sem considerar as datas do semestre
-    extractCalendarDataToJson($text);
+    // Recebe as datas de início e fim do semestre a partir do formulário
+    $inicioSemestre = isset($_POST['inicio_semestre']) ? $_POST['inicio_semestre'] : null;
+    $fimSemestre = isset($_POST['fim_semestre']) ? $_POST['fim_semestre'] : null;
+
+    if (!$inicioSemestre || !$fimSemestre) {
+        echo "Erro: Data de início ou fim do semestre não fornecida.";
+        return;
+    }
+
+    // Passa as datas para a função que irá processar o conteúdo do PDF
+    extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre);
 }
 
-function extractCalendarDataToJson($text)
+function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
 {
     preg_match_all('/([A-Za-zçÇ]+\/\d{4})(.*?)(?=([A-Za-zçÇ]+\/\d{4})|$)/s', $text, $matches, PREG_SET_ORDER);
     $keywords = [
@@ -132,13 +141,22 @@ function extractCalendarDataToJson($text)
         ];
     }
 
+    $jsonInico_fim = [];
+    if ($inicioSemestre && $fimSemestre) {
+        $jsonInico_fim[] = [
+            'inicio_semestre' => $inicioSemestre,
+            'fim_semestre' => $fimSemestre,
+        ];
+    }
+
     if (!is_dir('../../../global/data/calendario/json')) {
         mkdir('../../../global/data/calendario/json');
     }
-
+    $fileInicio_fim = '../../../global/data/calendario/json/Inicio_fim.json';
     $filePath = '../../../global/data/calendario/json/feriados.json';
 
     file_put_contents($filePath, json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    file_put_contents($fileInicio_fim, json_encode($jsonInico_fim, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
     return $filePath;
 }

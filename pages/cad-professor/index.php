@@ -25,6 +25,20 @@
                         </span>
                         <input type="text" name="materia" class="paragraph">
                     </label>
+                    <!-- Horario -->
+                    <label for="" class="horario paragraph">
+                        <span class="paragraph">
+                            Horario
+                        </span>
+                        <input type="text" name="horario" class="paragraph">
+                    </label>
+                    <!-- local -->
+                    <label for="" class="local paragraph">
+                        <span class="paragraph">
+                            Local
+                        </span>
+                        <input type="text" name="local" class="paragraph">
+                    </label>
                     <!-- data -->
                     <div class="data">
                         <span class="paragraph">Data</span>
@@ -177,22 +191,28 @@
 
         const materia = $("[name='materia']").val();
         const curso = $("[name='curso']").val();
+        const local = $("[name='local']").val();
+        const horario = $("[name='horario']").val();
         const base64 = base64String;
-        const diasSelecionados = ['Segunda', 'Quarta'];
 
         let formData = new FormData();
         formData.append("materia", materia);
+        formData.append("local", local);
+        formData.append("horario", horario);
         formData.append("curso", curso);
         formData.append("image", base64); // Se for uma imagem base64, deve ser tratada corretamente.
         formData.append("dia", JSON.stringify(diasSelecionados));
         formData.append('imageName', file.name)
 
+        // formData.forEach((res) => console.log(res))
+
+
         $.ajax({
             url: "./php/prof.post.php",
             method: "POST",
             data: formData,
-            processData: false, // Não processa os dados
-            contentType: false, // Não define o tipo de conteúdo para multipart/form-data
+            processData: false,
+            contentType: false,
             success: function(response) {
                 console.log("Resposta do servidor:", response);
             },

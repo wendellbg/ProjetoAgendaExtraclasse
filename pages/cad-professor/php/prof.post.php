@@ -39,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $materia = $_POST['materia'] ?? '';
     $curso = $_POST['curso'] ?? '';
     $dia = $_POST['dia'] ?? '[]';
+    $horario = $_POST['horario'];
+    $local = $_POST['local'];
     $filePath = '../../../global/data/professor.data.json';
     $fileNamePath = '../../../global/data/data.json';
 
@@ -55,6 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'curso' => $curso,
         'image' => $imageName,
         'dia' => json_decode($dia, true),
+        'local' => $local,
+        'horario' => $horario,
         'nome_professor' => $userData['nome']
     ];
 
