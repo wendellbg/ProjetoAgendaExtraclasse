@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dia = $_POST['dia'] ?? '[]';
     $horario = $_POST['horario'];
     $local = $_POST['local'];
+    $id = uniqid();
     $filePath = '../../../global/data/professor.data.json';
     $fileNamePath = '../../../global/data/data.json';
 
@@ -53,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $novoDado = [
+        'id' => $id,
         'materia' => $materia,
         'curso' => $curso,
         'image' => $imageName,

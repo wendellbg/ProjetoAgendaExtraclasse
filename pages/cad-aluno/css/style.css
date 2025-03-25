@@ -4,7 +4,6 @@
 .cadastro-container {
   width: 100%;
   display: flex;
-  justify-content: center;
 }
 .form-cadastro {
   width: 600px;

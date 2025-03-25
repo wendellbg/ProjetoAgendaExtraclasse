@@ -1,6 +1,6 @@
 <?php
 
-$filePath = '../../global/data/perfil.mock.json';
+$filePath = '../../global/data/professor.data.json';
 
 
 $jsonData = file_get_contents($filePath);
@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
                         <h3 class="subtitle">
                             <?php
                             if (!empty($data)) {
-                                echo htmlspecialchars($data['nome_materia']);
+                                echo htmlspecialchars($data['materia']);
                             } else {
                                 echo "Sem materia selecionada";
                             }

@@ -182,13 +182,10 @@
         '<span class="paragraph">Escolha uma imagem</span>');
 
 
-
-
     // enviar os dados
 
     $('.form-prof').on('submit', (e) => {
         e.preventDefault();
-
         const materia = $("[name='materia']").val();
         const curso = $("[name='curso']").val();
         const local = $("[name='local']").val();
@@ -204,7 +201,7 @@
         formData.append("dia", JSON.stringify(diasSelecionados));
         formData.append('imageName', file.name)
 
-        // formData.forEach((res) => console.log(res))
+        formData.forEach((res) => console.log(res))
 
 
         $.ajax({

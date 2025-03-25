@@ -27,16 +27,16 @@
 
                 <?php
 
-                $filePath = '../../global/data/perfil.mock.json';
+                $filePath = '../../global/data/professor.data.json';
                 $jsonData = file_get_contents($filePath);
                 $materias = json_decode($jsonData, true);
                 foreach ($materias as $materia) {
                 ?>
                     <div class="card">
                         <div class="img-home-container">
-                            <img src="<?= htmlspecialchars($materia['imagem']) ?>" alt="imagem da matéria escolhida">
+                            <img src="<?= '../../global/data/imagem/' . htmlspecialchars($materia['image']) ?>" alt="imagem da matéria escolhida">
                         </div>
-                        <h3 class="subtitle"><?= htmlspecialchars($materia['nome_materia']) ?></h3>
+                        <h3 class="subtitle"><?= htmlspecialchars($materia['materia']) ?></h3>
                         <p class="paragraph"><?= htmlspecialchars($materia['nome_professor']) ?></p>
                         <button class="subtitle" onclick="window.location.href='/pages/cad-aluno/index.php?id=<?= $materia['id'] ?>'">Agendar</button>
 
