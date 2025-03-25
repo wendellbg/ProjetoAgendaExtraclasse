@@ -5,31 +5,9 @@ use Smalot\PdfParser\Parser;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uploadDir = '../../../global/data/calendario/uploads/';
-    $oldUploadDir = '../../../global/data/calendario/oldUploads/';
-
-    // Criando diretórios, se necessário
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
-    if (!is_dir($oldUploadDir)) {
-        mkdir($oldUploadDir, 0777, true);
-    }
-
-    // Movendo arquivos antigos para oldUploads/
-    $files = array_diff(scandir($uploadDir), array('..', '.'));
-
-    foreach ($files as $file) {
-        $oldFilePath = $uploadDir . $file;
-        $newFilePath = $oldUploadDir . time() . "_" . $file;
-
-        if (rename($oldFilePath, $newFilePath)) {
-            echo "Arquivo '$file' movido para 'oldUploads' como '$newFilePath'.<br>";
-        } else {
-            echo "Erro ao mover o arquivo '$file' para 'oldUploads'.<br>";
-        }
-    }
-
-    // Verifica se o arquivo PDF foi enviado
     if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
         $uploadFile = $uploadDir . basename($_FILES['pdf']['name']);
         $fileType = mime_content_type($_FILES['pdf']['tmp_name']);
@@ -40,12 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Move o arquivo para uploads
-        if (move_uploaded_file($_FILES['pdf']['tmp_name'], $uploadFile)) {
-            echo "Arquivo enviado com sucesso!<br>";
-            processPDF($uploadFile);  // Processar o PDF
-        } else {
-            echo "Erro ao mover o arquivo para uploads.<br>";
+
+        // Sobrescreve o arquivo caso já exista verifica se tem pdf no post pra sobrescrever, evita sobrescrever pra vazio o pdf,
+        //  o motivo na real de ter esse cara e pra não encher de arquivo no servidor e esse primeiro if e pra evitar que ele sobrescreva o pdf existente para nada.
+        if ($_FILES['pdf']) {
+            if (move_uploaded_file($_FILES['pdf']['tmp_name'], $uploadFile)) {
+                echo "Arquivo enviado com sucesso!<br>";
+                processPDF($uploadFile);  // Processar o PDF
+            } else {
+                echo "Erro ao mover o arquivo para uploads.<br>";
+            }
         }
     } else {
         echo "Erro no envio do arquivo.<br>";
@@ -53,13 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+
 function processPDF($filePath)
 {
     $parser = new Parser();
     $pdf = $parser->parseFile($filePath);
     $text = $pdf->getText();
-
-    // Recebe as datas de início e fim do semestre a partir do formulário
+    $text = mb_convert_encoding($text, 'UTF-8', 'auto');
     $inicioSemestre = isset($_POST['inicio_semestre']) ? $_POST['inicio_semestre'] : null;
     $fimSemestre = isset($_POST['fim_semestre']) ? $_POST['fim_semestre'] : null;
 
@@ -67,37 +49,24 @@ function processPDF($filePath)
         echo "Erro: Data de início ou fim do semestre não fornecida.";
         return;
     }
-
-    // Passa as datas para a função que irá processar o conteúdo do PDF
     extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre);
 }
 
 function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
 {
     preg_match_all('/([A-Za-zçÇ]+\/\d{4})(.*?)(?=([A-Za-zçÇ]+\/\d{4})|$)/s', $text, $matches, PREG_SET_ORDER);
-    $keywords = [
-        'recesso',
-        'férias',
-        'feriado'
-    ];
 
-    $firstMonthYear = null;
-    $lastMonthYear = null;
+    $keywords = [
+        'Recesso ' => 'purple',
+        'férias' => 'yellow',
+        'feriado' => 'orange'
+    ];
 
     $allDaysActivities = [];
 
     foreach ($matches as $section) {
         $monthYear = trim($section[1]);
         $content = trim($section[2]);
-
-        $daysActivities = [];
-        $firstDay = null;
-        $lastDay = null;
-
-        if ($firstMonthYear === null) {
-            $firstMonthYear = $monthYear;
-        }
-        $lastMonthYear = $monthYear;
 
         $lines = explode("\n", $content);
 
@@ -108,58 +77,126 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
                 continue;
             }
 
-            if (preg_match('/^(\d{1,2})(?:\s*[\–\-]?\s*(.*))$/', $line, $matches)) {
-                $day = $matches[1];
-                $activity = isset($matches[2]) ? $matches[2] : 'Sem atividade registrada';
 
-                if ($firstDay === null) {
-                    $firstDay = $day;
-                }
-                $lastDay = $day;
+            if (preg_match('/^(\d{1,2})(?:\s*[-–—]\s*(\d{1,2}))?\s*(.*)$/', $line, $matches)) {
 
-                foreach ($keywords as $keyword) {
+                $dayStart = $matches[1];
+                $dayEnd = $matches[2];
+                $dayEnd = !empty($dayEnd) ? $dayEnd : $dayStart;
+                $activity = trim($matches[3]);
+               
+
+                // Verifica se a atividade contém palavras-chave para definir a cor
+                foreach ($keywords as $keyword => $color) {
                     if (stripos($activity, $keyword) !== false) {
-                        $daysActivities[] = "$day - $activity";
+                        $formattedMonthYear = parseDateFromMonthYear($monthYear);
+
+                        $startDate = DateTime::createFromFormat('d/m/Y', "$dayStart/$formattedMonthYear");
+                        $endDate = DateTime::createFromFormat('d/m/Y', "$dayEnd/$formattedMonthYear");
+                        // Verifique se a conversão foi bem-sucedida antes de chamar format()
+                        if ($startDate) {
+                            $startDate = $startDate->format('Y-m-d');
+                        } else {
+                            die("Erro ao converter a data de início: $dayStart/$formattedMonthYear");
+                        }
+
+                        if ($endDate) {
+                            $endDate = $endDate->format('Y-m-d');
+                        } else {
+                            die("Erro ao converter a data de fim: $dayEnd/$formattedMonthYear");
+                        }
+
+                        // Adicionando ao array final
+                        $allDaysActivities[] = [
+                            'start' => $startDate,
+                            // 'title' => $activity,
+                            'end' => $endDate,
+                            'overlap' => false,
+                            'display' => 'background',
+                            'color' => $color
+                        ];
                         break;
                     }
                 }
             }
         }
-
-        if (!empty($daysActivities)) {
-            $allDaysActivities[$monthYear] = $daysActivities;
-        }
     }
 
-    // Aqui, estamos apenas extraindo as atividades sem adicionar o início e fim de semestre
-    $jsonData = [];
-
-    foreach ($allDaysActivities as $monthYear => $activities) {
-        $jsonData[] = [
-            'month_year' => $monthYear,
-            'activities' => $activities
-        ];
-    }
-
-    $jsonInico_fim = [];
+    // Adicionando informações do semestre
+    $jsonInicioFim = [];
     if ($inicioSemestre && $fimSemestre) {
-        $jsonInico_fim[] = [
+        $jsonInicioFim[] = [
             'inicio_semestre' => $inicioSemestre,
             'fim_semestre' => $fimSemestre,
         ];
     }
 
-    if (!is_dir('../../../global/data/calendario/json')) {
-        mkdir('../../../global/data/calendario/json');
+    // Verifique e crie o diretório se não existir
+    $dirPath = '../../../global/data/calendario/json';
+    if (!is_dir($dirPath)) {
+        mkdir($dirPath, 0777, true);
     }
-    $fileInicio_fim = '../../../global/data/calendario/json/Inicio_fim.json';
-    $filePath = '../../../global/data/calendario/json/feriados.json';
 
-    file_put_contents($filePath, json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    file_put_contents($fileInicio_fim, json_encode($jsonInico_fim, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    // Caminho para os arquivos JSON
+    $filePath = $dirPath . '/feriados.json';
+    $fileInicioFim = $dirPath . '/Inicio_fim.json';
 
-    return $filePath;
+    // Salve o JSON com o calendário de eventos
+    file_put_contents($filePath, json_encode($allDaysActivities, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    // Salve as datas de início e fim do semestre
+    file_put_contents($fileInicioFim, json_encode($jsonInicioFim, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+    return $filePath;  // Caminho do arquivo JSON gerado
 }
+
+
+
+
+
+
+
+
+function convertMonthNameToNumber($monthName)
+{
+    $months = [
+        'JANEIRO' => '01',
+        'FEVEREIRO' => '02',
+        'MARÇO' => '03',
+        'ABRIL' => '04',
+        'MAIO' => '05',
+        'JUNHO' => '06',
+        'JULHO' => '07',
+        'AGOSTO' => '08',
+        'SETEMBRO' => '09',
+        'OUTUBRO' => '10',
+        'NOVEMBRO' => '11',
+        'DEZEMBRO' => '12'
+    ];
+    return isset($months[strtoupper($monthName)]) ? $months[strtoupper($monthName)] : false;
+}
+
+function parseDateFromMonthYear($monthYear)
+{
+    list($monthName, $year) = explode('/', $monthYear);
+    $monthNumber = convertMonthNameToNumber($monthName);
+
+    if ($monthNumber === false) {
+        return "Mês inválido";
+    }
+
+    // Agora a data será corretamente formatada como 'm/Y'
+    return date('m/Y', strtotime("$monthNumber/01/$year"));
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

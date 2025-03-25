@@ -1,0 +1,12 @@
+@import "../../../global/css/variable.css";
+@import "../../../global/header/css/header.css";
+
+:root {
+  --fc-neutral-text-color: black;
+}
+.calendar {
+  width: 80%;
+  margin: 30px auto;
+  height: 80vh;
+  color: var(--fc-neutral-text-color);
+}
