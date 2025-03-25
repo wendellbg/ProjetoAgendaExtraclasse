@@ -15,6 +15,19 @@ if (isset($_GET['id'])) {
         }
     }
 }
+include './php/getNextDays.php';
+$diasFilePath = '../../global/data/calendario/json/Inicio_fim.json';
+$diaJsn = file_get_contents($diasFilePath);
+$diaData = json_decode($diaJsn, true);
+$dias = $data['dia'];
+if ($diaData) {
+    foreach ($diaData as $Inicio_fim) {
+        $dataInicial = $Inicio_fim['inicio_semestre'];
+        $dataFinal = $Inicio_fim['fim_semestre'];
+    }
+}
+$datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +63,15 @@ if (isset($_GET['id'])) {
                         </label>
                         <label for="data">
                             <span class="paragraph">Data</span>
-                            <input class="paragraph" type="text" id="data" name="data">
+                            <select name="data" id="" class="paragraph">
+                                <?php
+                                foreach ($datas as $dia) {
+                                ?>
+                                    <option value=<?php echo $dia ?>><?php echo $dia ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
                         </label>
                         <label for="hora">
                             <span class="paragraph">Hora</span>

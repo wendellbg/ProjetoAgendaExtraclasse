@@ -41,7 +41,7 @@
   color: var(--black);
 }
 
-.form-cadastro label > input {
+.form-cadastro label > input, select {
   border: 1px solid var(--gray-primary);
   background: #fff;
   border-radius: 6px;

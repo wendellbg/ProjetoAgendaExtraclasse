@@ -5,44 +5,52 @@
   max-width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns:repeat(auto-fill,250px);
+
+  grid-template-columns: repeat(auto-fill, 250px);
   gap: 40px;
 }
 .card-container .card {
   width: 250px;
   display: flex;
   flex-direction: column;
+  flex: 3 2 auto;
+  padding-bottom: 20px;
+  height: min-content;
   gap: 20px;
-  padding: 20px 0px;
+
   align-items: center;
   box-shadow: var(--shadow);
   border-radius: 8px;
 }
 .img-home-container {
-  width: 90%;
-  border-bottom: 3px solid var(--black);
-}
-.img-home-container img {
   width: 100%;
+  height: 250px;
+}
+.img-home-container > img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   padding: 0px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .card h3 {
-color: var(--black);
+  color: var(--black);
+  padding: 0px 20px;
 }
 .card p {
   color: var(--black);
 }
 .card button {
-  background:var(--green-secondary);
-  border:none;
+  background: var(--green-secondary);
+  border: none;
   color: var(--black);
   padding: 5px 30px;
   border-radius: 32px;
   cursor: pointer;
 }
-.card button:hover{
-  background:var(--green-primary);
+.card button:hover {
+  background: var(--green-primary);
   color: var(--gray-primary);
 }
