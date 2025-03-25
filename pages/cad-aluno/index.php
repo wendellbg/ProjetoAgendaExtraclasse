@@ -105,12 +105,18 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
                             ? json_encode($data['materia'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
                             : '""';
                         ?>;
+        const idMateria = <?php
+                            echo isset($id)
+                                ? json_encode($id, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
+                                : '""';
+                            ?>;
 
         let formData = new FormData();
         formData.append("assunto", assunto);
         formData.append("data", data);
         formData.append("observacao", observacao);
         formData.append("materia", materia);
+        formData.append("idMateria", idMateria);
         // formData.forEach((res) => console.log(res))
 
         $.ajax({

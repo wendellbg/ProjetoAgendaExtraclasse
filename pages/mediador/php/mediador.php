@@ -57,9 +57,9 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
     preg_match_all('/([A-Za-zçÇ]+\/\d{4})(.*?)(?=([A-Za-zçÇ]+\/\d{4})|$)/s', $text, $matches, PREG_SET_ORDER);
 
     $keywords = [
-        'Recesso ' => 'purple',
-        'férias' => 'yellow',
-        'feriado' => 'orange'
+        'Recesso ' => ['type' => 'recesso', 'color' => 'purple'],
+        'férias' => ['type' => 'ferias', 'color' => 'yellow'],
+        'feriado' => ['type' => 'feriado', 'color' => 'orange']
     ];
 
     $allDaysActivities = [];
@@ -82,20 +82,23 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
                 $dayEnd = !empty($matches[2]) ? (int) $matches[2] : $dayStart;
                 $activity = trim($matches[3]);
 
-                foreach ($keywords as $keyword => $color) {
+                foreach ($keywords as $keyword => $info) {
                     if (stripos($activity, $keyword) !== false) {
                         $formattedMonthYear = parseDateFromMonthYear($monthYear);
 
                         for ($day = $dayStart; $day <= $dayEnd; $day++) {
                             $date = DateTime::createFromFormat('d/m/Y', "$day/$formattedMonthYear");
                             if ($date) {
-                                $allDaysActivities[] = [
-                                    'start' => $date->format('Y-m-d'),
-                                    'overlap' => false,
-                                    'title' => $activity,
-                                    'display' => 'background',
-                                    'color' => $color
-                                ];
+                                $formattedDate = $date->format('Y-m-d');
+                                if (!isset($allDaysActivities[$formattedDate])) {
+                                    $allDaysActivities[$formattedDate] = [
+                                        'start' => $formattedDate,
+                                        'title' => $info['type'],
+                                        'overlap' => false,
+                                        'display' => 'background',
+                                        'color' => $info['color']
+                                    ];
+                                }
                             } else {
                                 die("Erro ao converter a data: $day/$formattedMonthYear");
                             }
@@ -106,6 +109,9 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
             }
         }
     }
+
+    // Converte o array associativo para um array indexado
+    $allDaysActivities = array_values($allDaysActivities);
 
     // Adicionando informações do semestre
     $jsonInicioFim = [];
@@ -132,6 +138,7 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
 
     return $filePath; // Retorna o caminho do JSON gerado
 }
+
 
 
 

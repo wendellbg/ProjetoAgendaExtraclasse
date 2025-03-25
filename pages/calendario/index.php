@@ -36,12 +36,12 @@
                 })
             ])
             .then(([feriados, aulas]) => {
-                console.log("Resposta da API de Aulas:", aulas); // Verifique a estrutura da resposta
 
                 let eventosAulas = Array.isArray(aulas) ? aulas.map(evento => ({
                     title: evento.data.title, // O título vem de "data.title"
                     start: evento.data.start, // Data de início
                     color: evento.data.color, // Cor do evento
+                    id: evento.data.url,
                     constraint: evento.data.constraint, // Restrições, se houver
                 })) : [];
 
@@ -54,15 +54,30 @@
     }
 
     $(document).ready(function() {
+        let user = 'aluno';
         fetchCalendar().then(eventos => {
-            console.log("Eventos recebidos:", eventos);
 
             let calendarEl = $(".calendar").get(0);
             let calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: "dayGridMonth",
-                locale: "pt-br",
-                events: eventos, // Eventos formatados corretamente
-            });
+                    initialView: "dayGridMonth",
+                    locale: "pt-br",
+                    events: eventos,
+
+                    eventClick: function(info) {
+                        const eventUrl = info.event.id;
+                        if (user === 'aluno') {
+                            let url = `/pages/aluno/index.php?id=${eventUrl}`
+                            window.location.href = url;
+                        } else if (user === 'professor') {
+                            let url = `/pages/professor/index.php?id=${eventUrl}`
+                            window.location.href = url;
+                        }
+
+                    },
+                }
+
+
+            );
 
             calendar.render();
         });
