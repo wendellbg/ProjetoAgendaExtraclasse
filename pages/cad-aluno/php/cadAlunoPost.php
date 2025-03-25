@@ -1,7 +1,43 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    foreach ($_POST as $cadastro) {
-        echo $cadastro . '<br>';
+    var_dump($_POST);
+    $assunto = $_POST['assunto'];
+    $materia = $_POST['materia'];
+    $data = $_POST['data'];
+    $dateTime = DateTime::createFromFormat('d/m/Y', $data);
+    if ($dateTime) {
+        $dataFormatada = $dateTime->format('Y-m-d');
     }
+    $observacao = $_POST['observacao'];
+    $id = uniqid();
+    $filePath = '../../../global/data/aluno.data.json';
+
+    $dataArr =  [
+        'title' => $materia,
+        'start' => $dataFormatada,
+        'constraint' => 'availableForMeeting',
+        'color' => '#257e4a'
+    ];
+
+    $novoDado = [
+        'id' => $id,
+        'assunto' => $assunto,
+        'data' => $dataArr,
+        'observacao' => $observacao,
+    ];
+
+    if (file_exists($filePath) && $imageName) {
+        $dadosAnteriores = json_decode(file_get_contents($filePath), true);
+        if (!is_array($dadosAnteriores)) {
+            $dadosAnteriores = [];
+        }
+    } else {
+        $dadosAnteriores = [];
+    }
+
+    $dadosAnteriores[] = $novoDado;
+
+    file_put_contents($filePath, json_encode($dadosAnteriores,  JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+    echo "Dados salvos com sucesso!";
 }

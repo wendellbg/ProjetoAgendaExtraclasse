@@ -44,7 +44,7 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
         <?php include '../../global/header/Header.php' ?>
         <Main class="Main-container">
             <div class="cadastro-container">
-                <form action="./php/cadAlunoPost.php" method="post" class="form-cadastro">
+                <form method="post" class="form-cadastro">
                     <div class="cad-title">
                         <h3 class="subtitle">
                             <?php
@@ -73,10 +73,6 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
                                 ?>
                             </select>
                         </label>
-                        <label for="hora">
-                            <span class="paragraph">Hora</span>
-                            <input class="paragraph" type="text" id="hora" name="hora">
-                        </label>
                         <label for="observacao">
                             <span class="paragraph">Observação</span>
                             <input class="paragraph" type="text" id="observacao" name="observacao">
@@ -84,7 +80,7 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
 
                     </div>
                     <div class="button-perfil-container">
-                        <input type="submit" value="Cadastrar" class="button-perfil subtitle">
+                        <input type="submit" value="Agendar" class="button-perfil subtitle">
                     </div>
                 </form>
             </div>
@@ -93,7 +89,42 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
     </div>
 </body>
 
+<!-- ./php/cadAlunoPost.php -->
+<script>
+    $('.form-cadastro').on('submit', (e) => {
+        e.preventDefault();
+        const assunto = $("[name='assunto']").val();
+        const data = $("[name='data']").val();
+        const observacao = $("[name='observacao']").val();
+        const materia = <?php
+                        echo isset($data['materia'])
+                            ? json_encode($data['materia'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
+                            : '""';
+                        ?>;
 
+        let formData = new FormData();
+        formData.append("assunto", assunto);
+        formData.append("data", data);
+        formData.append("observacao", observacao);
+        formData.append("materia", materia);
+        // formData.forEach((res) => console.log(res))
+
+        $.ajax({
+            url: "./php/cadAlunoPost.php",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log("Enviado");
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Erro ao enviar os dados:", textStatus, errorThrown);
+            },
+        });
+
+    });
+</script>
 
 
 </html>

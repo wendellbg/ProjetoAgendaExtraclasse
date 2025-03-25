@@ -201,7 +201,7 @@
         formData.append("dia", JSON.stringify(diasSelecionados));
         formData.append('imageName', file.name)
 
-        formData.forEach((res) => console.log(res))
+        // formData.forEach((res) => console.log(res))
 
 
         $.ajax({
