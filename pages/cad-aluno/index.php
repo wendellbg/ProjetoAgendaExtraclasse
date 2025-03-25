@@ -9,12 +9,14 @@ $data = [];
 if (isset($_GET['id'])) {
     $id = htmlspecialchars($_GET['id']);
     foreach ($materias as $materia) {
+
         if ($materia['id'] == $id) {
             $data = $materia;
             break;
         }
     }
 }
+
 include './php/getNextDays.php';
 $diasFilePath = '../../global/data/calendario/json/Inicio_fim.json';
 $diaJsn = file_get_contents($diasFilePath);
@@ -65,10 +67,12 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
                             <span class="paragraph">Data</span>
                             <select name="data" id="" class="paragraph">
                                 <?php
-                                foreach ($datas as $dia) {
+                                if ($datas) {
+                                    foreach ($datas as $dia) {
                                 ?>
-                                    <option value=<?php echo $dia ?>><?php echo $dia ?></option>
+                                        <option value=<?php echo $dia ?>><?php echo $dia ?></option>
                                 <?php
+                                    }
                                 }
                                 ?>
                             </select>

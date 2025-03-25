@@ -77,44 +77,29 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
                 continue;
             }
 
-
             if (preg_match('/^(\d{1,2})(?:\s*[-–—]\s*(\d{1,2}))?\s*(.*)$/', $line, $matches)) {
-
-                $dayStart = $matches[1];
-                $dayEnd = $matches[2];
-                $dayEnd = !empty($dayEnd) ? $dayEnd : $dayStart;
+                $dayStart = (int) $matches[1];
+                $dayEnd = !empty($matches[2]) ? (int) $matches[2] : $dayStart;
                 $activity = trim($matches[3]);
-               
 
-                // Verifica se a atividade contém palavras-chave para definir a cor
                 foreach ($keywords as $keyword => $color) {
                     if (stripos($activity, $keyword) !== false) {
                         $formattedMonthYear = parseDateFromMonthYear($monthYear);
 
-                        $startDate = DateTime::createFromFormat('d/m/Y', "$dayStart/$formattedMonthYear");
-                        $endDate = DateTime::createFromFormat('d/m/Y', "$dayEnd/$formattedMonthYear");
-                        // Verifique se a conversão foi bem-sucedida antes de chamar format()
-                        if ($startDate) {
-                            $startDate = $startDate->format('Y-m-d');
-                        } else {
-                            die("Erro ao converter a data de início: $dayStart/$formattedMonthYear");
+                        for ($day = $dayStart; $day <= $dayEnd; $day++) {
+                            $date = DateTime::createFromFormat('d/m/Y', "$day/$formattedMonthYear");
+                            if ($date) {
+                                $allDaysActivities[] = [
+                                    'start' => $date->format('Y-m-d'),
+                                    'overlap' => false,
+                                    'title' => $activity,
+                                    'display' => 'background',
+                                    'color' => $color
+                                ];
+                            } else {
+                                die("Erro ao converter a data: $day/$formattedMonthYear");
+                            }
                         }
-
-                        if ($endDate) {
-                            $endDate = $endDate->format('Y-m-d');
-                        } else {
-                            die("Erro ao converter a data de fim: $dayEnd/$formattedMonthYear");
-                        }
-
-                        // Adicionando ao array final
-                        $allDaysActivities[] = [
-                            'start' => $startDate,
-                            // 'title' => $activity,
-                            'end' => $endDate,
-                            'overlap' => false,
-                            'display' => 'background',
-                            'color' => $color
-                        ];
                         break;
                     }
                 }
@@ -131,23 +116,23 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
         ];
     }
 
-    // Verifique e crie o diretório se não existir
+    // Criando diretório se não existir
     $dirPath = '../../../global/data/calendario/json';
     if (!is_dir($dirPath)) {
         mkdir($dirPath, 0777, true);
     }
 
-    // Caminho para os arquivos JSON
+    // Caminho dos arquivos JSON
     $filePath = $dirPath . '/feriados.json';
     $fileInicioFim = $dirPath . '/Inicio_fim.json';
 
-    // Salve o JSON com o calendário de eventos
+    // Salvando os arquivos JSON
     file_put_contents($filePath, json_encode($allDaysActivities, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    // Salve as datas de início e fim do semestre
     file_put_contents($fileInicioFim, json_encode($jsonInicioFim, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
-    return $filePath;  // Caminho do arquivo JSON gerado
+    return $filePath; // Retorna o caminho do JSON gerado
 }
+
 
 
 

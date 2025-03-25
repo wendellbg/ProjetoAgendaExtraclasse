@@ -19,33 +19,52 @@
 
 </body>
 <script src="./lib/index.global.min.js"></script>
-<script src="./lib/core/locales-all.global.min.js"></script>
+<script src="./lib/core/locales/pt-br.global.min.js"></script>
 <script>
-    const url = '../../global/data/calendario/json/feriados.json';
-    async function fetchCalendar() {
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data) {
-                return data;
-            }
-        } catch (error) {
-            console.error('Erro ao carregar o JSON:', error);
-            return [];
-        }
+    const feriadoUrl = '../../global/data/calendario/json/feriados.json';
+    const AulaUrl = '../../global/data/aluno.data.json'
+
+    function fetchCalendar() {
+        return Promise.all([
+                $.ajax({
+                    url: feriadoUrl,
+                    method: "GET"
+                }),
+                $.ajax({
+                    url: AulaUrl,
+                    method: "GET"
+                })
+            ])
+            .then(([feriados, aulas]) => {
+                console.log("Resposta da API de Aulas:", aulas); // Verifique a estrutura da resposta
+
+                let eventosAulas = Array.isArray(aulas) ? aulas.map(evento => ({
+                    title: evento.data.title, // O título vem de "data.title"
+                    start: evento.data.start, // Data de início
+                    color: evento.data.color, // Cor do evento
+                    constraint: evento.data.constraint, // Restrições, se houver
+                })) : [];
+
+                return [...feriados, ...eventosAulas];
+            })
+            .catch(error => {
+                console.error("Erro ao buscar os dados:", error);
+                return [];
+            });
     }
 
     $(document).ready(function() {
-        fetchCalendar().then(events => {
-            let calendarEl = $('.calendar').get(0);
+        fetchCalendar().then(eventos => {
+            console.log("Eventos recebidos:", eventos);
+
+            let calendarEl = $(".calendar").get(0);
             let calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'pt-br',
-                events: events
+                initialView: "dayGridMonth",
+                locale: "pt-br",
+                events: eventos, // Eventos formatados corretamente
             });
+
             calendar.render();
-        }).catch(error => {
-            console.error('Erro ao configurar o calendário:', error);
         });
     });
 </script>
