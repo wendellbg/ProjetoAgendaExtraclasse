@@ -42,6 +42,7 @@
                     start: evento.data.start, // Data de início
                     color: evento.data.color, // Cor do evento
                     id: evento.data.url,
+                    display: 'list-item',
                     constraint: evento.data.constraint, // Restrições, se houver
                 })) : [];
 
@@ -65,15 +66,18 @@
 
                     eventClick: function(info) {
                         const eventUrl = info.event.id;
-                        if (user === 'aluno') {
-                            let url = `/pages/aluno/index.php?id=${eventUrl}`
-                            window.location.href = url;
-                        } else if (user === 'professor') {
-                            let url = `/pages/professor/index.php?id=${eventUrl}`
-                            window.location.href = url;
+                        if (eventUrl) {
+                            if (user === 'aluno') {
+                                let url = `/pages/aluno/index.php?id=${eventUrl}`
+                                window.location.href = url;
+                            } else if (user === 'professor') {
+                                let url = `/pages/professor/index.php?id=${eventUrl}`
+                                window.location.href = url;
+                            }
                         }
 
                     },
+
                 }
 
 

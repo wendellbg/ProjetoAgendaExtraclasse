@@ -57,9 +57,12 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
     preg_match_all('/([A-Za-zçÇ]+\/\d{4})(.*?)(?=([A-Za-zçÇ]+\/\d{4})|$)/s', $text, $matches, PREG_SET_ORDER);
 
     $keywords = [
-        'Recesso ' => ['type' => 'recesso', 'color' => 'purple'],
-        'férias' => ['type' => 'ferias', 'color' => 'yellow'],
-        'feriado' => ['type' => 'feriado', 'color' => 'orange']
+        'Recesso Acadêmico' => ['type' => 'recesso', 'color' => 'purple'],
+        'Férias docentes' => ['type' => 'ferias', 'color' => 'yellow'],
+        'Férias discentes' => ['type' => 'ferias', 'color' => 'yellow'],
+        'Feriado Nacional' => ['type' => 'feriado Nacional', 'color' => 'orange'],
+        'feriado municipal' => ['type' => 'feriado municipal', 'color' => 'orange'],
+        'ponto facultativo' => ['type' => 'feriado facultativo', 'color' => 'orange'],
     ];
 
     $allDaysActivities = [];
@@ -69,8 +72,27 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
         $content = trim($section[2]);
 
         $lines = explode("\n", $content);
+        $mergedLines = [];
+        $ignoreNextLine = false;
 
-        foreach ($lines as $line) {
+        // Unindo linhas quebradas e ignorando legenda e padrões indesejados
+        for ($i = 0; $i < count($lines); $i++) {
+            $line = trim($lines[$i]);
+            if (empty($line)) {
+                continue;
+            }
+
+            // Verifica se a próxima linha é uma continuação (não começa com número)
+            while (isset($lines[$i + 1]) && !preg_match('/^\d{1,2}/', trim($lines[$i + 1]))) {
+                $line .= ' ' . trim($lines[$i + 1]); // Concatena a linha seguinte
+                $i++; // Avança para a próxima linha
+            }
+
+            $mergedLines[] = $line;
+        }
+
+        // Processando as linhas já corrigidas
+        foreach ($mergedLines as $line) {
             $line = trim($line);
 
             if (empty($line) || preg_match('/^Q|^\d{1,2}(?:\s+\d{1,2})*$/', $line)) {
@@ -81,6 +103,7 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
                 $dayStart = (int) $matches[1];
                 $dayEnd = !empty($matches[2]) ? (int) $matches[2] : $dayStart;
                 $activity = trim($matches[3]);
+
 
                 foreach ($keywords as $keyword => $info) {
                     if (stripos($activity, $keyword) !== false) {
@@ -95,7 +118,7 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
                                         'start' => $formattedDate,
                                         'title' => $info['type'],
                                         'overlap' => false,
-                                        'display' => 'background',
+                                        'display' => 'list-item',
                                         'color' => $info['color']
                                     ];
                                 }
@@ -138,6 +161,10 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
 
     return $filePath; // Retorna o caminho do JSON gerado
 }
+
+
+
+
 
 
 
