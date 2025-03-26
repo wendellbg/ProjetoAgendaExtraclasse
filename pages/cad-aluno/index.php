@@ -77,11 +77,6 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
                                 ?>
                             </select>
                         </label>
-                        <label for="observacao">
-                            <span class="paragraph">Observação</span>
-                            <input class="paragraph" type="text" id="observacao" name="observacao">
-                        </label>
-
                     </div>
                     <div class="button-perfil-container">
                         <input type="submit" value="Agendar" class="button-perfil subtitle">
@@ -99,7 +94,6 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
         e.preventDefault();
         const assunto = $("[name='assunto']").val();
         const data = $("[name='data']").val();
-        const observacao = $("[name='observacao']").val();
         const materia = <?php
                         echo isset($data['materia'])
                             ? json_encode($data['materia'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
@@ -114,7 +108,6 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
         let formData = new FormData();
         formData.append("assunto", assunto);
         formData.append("data", data);
-        formData.append("observacao", observacao);
         formData.append("materia", materia);
         formData.append("idMateria", idMateria);
         // formData.forEach((res) => console.log(res))

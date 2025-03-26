@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($dateTime) {
         $dataFormatada = $dateTime->format('Y-m-d');
     }
-    $observacao = $_POST['observacao'];
+    $observacao = "";
     $id = uniqid();
     $filePath = '../../../global/data/aluno.data.json';
 
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'id' => $id,
         'assunto' => $assunto,
         'data' => $dataArr,
-        'observacao' => $observacao,
+        'imprevisto' => $observacao,
     ];
 
     if (file_exists($filePath) && $imageName) {
