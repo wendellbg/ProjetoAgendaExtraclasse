@@ -118,7 +118,7 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
                                         'start' => $formattedDate,
                                         'title' => $info['type'],
                                         'overlap' => false,
-                                        'display' => 'list-item',
+                                        'display' => 'background',
                                         'color' => $info['color']
                                     ];
                                 }

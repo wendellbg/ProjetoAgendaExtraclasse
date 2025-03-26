@@ -1,2 +1,102 @@
 @import "../../../global/css/variable.css";
 @import "../../../global/header/css/header.css";
+
+.aluno-container {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+#my-dialog {
+  align-self: flex-end;
+  display: none;
+}
+.form-imprevisto {
+  display: grid;
+  gap: 20px;
+  width: 500px;
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+}
+.form-imprevisto > h3 {
+  background: var(--green-primary);
+  text-align: center;
+  padding: 5px;
+  color: var(--gray-primary);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.form-imprevisto > label {
+  display: grid;
+  color: var(--black);
+  gap: 5px;
+  padding: 20px;
+}
+.form-imprevisto > label > input {
+  border: 1px solid var(--gray-primary);
+  background: #fff;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.form-imprevisto > .btn-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.close {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 30px;
+  cursor: pointer;
+}
+.btn-enviar {
+  border: none;
+  padding: 10px 80px;
+  border-radius: 32px;
+  font-size: 16px;
+  background: var(--green-secondary);
+  color: var(--black);
+  cursor: pointer;
+}
+.btn-enviar:hover {
+  background: var(--green-primary);
+  color: var(--gray-primary);
+}
+.materia-card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.materia-card-container > .card {
+  width: 100%;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 20px;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: var(--green-primary);
+  color: var(--gray-primary);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  align-items: center;
+}
+.body-card {
+  padding: 20px;
+}
+
+.btn-open-modal-container {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.btn-open-modal-container > .btn-enviar {
+  padding: 10px 50px;
+}

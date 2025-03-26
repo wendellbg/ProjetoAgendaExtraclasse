@@ -55,6 +55,7 @@ if (isset($_SESSION['tipo_vinculo'])) {
             <li><a href="/pages/calendario" class="subtitle">Calendario</a></li>
             <li><a href="/pages/aluno" class="subtitle">Aluno</a></li>
             <li><a href="/pages/professor" class="subtitle">Professor</a></li>
+            <li><a href="/pages/ata" class="subtitle">ata</a></li>
         </ul>
 
         <div class="button-exit-container">

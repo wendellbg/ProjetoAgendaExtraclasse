@@ -26,11 +26,11 @@ function getNextDaysOfWeek($daysArray, $startDate, $endDate)
     while ($nextDay <= $endDate) {
         $isFeriado = false;
 
-        // Verifica se a data é um feriado
+        
         foreach ($feriados as $feriado) {
             if ($feriado['start'] === $nextDay->format('Y-m-d')) {
                 $isFeriado = true;
-                break; // Se já for feriado, não precisa continuar verificando
+                break;
             }
         }
 
