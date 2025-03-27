@@ -8,6 +8,7 @@
         }
     ],
     "require": {
-        "smalot/pdfparser": "^2.11"
+        "smalot/pdfparser": "^2.11",
+        "dompdf/dompdf": "^3.1"
     }
 }

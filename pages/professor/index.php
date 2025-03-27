@@ -43,6 +43,7 @@ if (isset($_GET['id'])) {
                             <h3>data</h3>
                         </div>
                         <div class="body-card paragraph">
+                            <p>matricula</p>
                             <p>nome aluno</p>
                             <p>assunto</p>
                             <p>imprevisto</p>
