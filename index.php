@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form class="login-form" method="POST" action="./global/php/login.php">
+    <form class="login-form" method="POST" action="./login/php/login.php">
         <img src="./assets/img/logo_ifg.png" alt="logo ifg">
         <div class="inputs_container">
             <label class="label-container">
@@ -88,7 +88,7 @@
         // enviar os dados do suap pro arquivo user.data.php pra futuramente guardar no banco de dados de login
         const saveUserData = (data) => {
             $.ajax({
-                url: "./php/user.post.php",
+                url: "./login/php/suap.login.php",
                 method: "POST",
                 data: data,
                 success: function(response) {

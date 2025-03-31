@@ -72,6 +72,7 @@
                             <th scope='col'>Quinta</th>
                             <th scope='col'>Sexta</th>
                             <th scope="col">Contato Docente</th>
+                            <th scope="col">ATA</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,8 +91,8 @@
                                 <td><?php echo (in_array("Quarta", $dias)) ? htmlspecialchars($horario) : ''; ?></td>
                                 <td><?php echo (in_array("Quinta", $dias)) ? htmlspecialchars($horario) : ''; ?></td>
                                 <td><?php echo (in_array("Sexta", $dias)) ? htmlspecialchars($horario) : ''; ?></td>
-
                                 <td><?php echo htmlspecialchars($userData['telefone']); ?></td>
+                                <td class=" ata-btn "><a href="/pages/ata/index.php?id=<?php echo htmlspecialchars($data['id']); ?>">Ver ata</a></td>
                             </tr>
                         <?php
                         }

@@ -13,72 +13,82 @@
         <Main class="Main-container">
             <div class="ata-container">
                 <div class="ata-area" id="conteudo-pdf">
+                    <div class="scrool">
+                        <div class="area-pdf">
+                            <div class="header">
+                                <img src="./image/logo-full-ifg.png" alt="ifg logo completo">
+                            </div>
 
-                    <div class="area-pdf">
-                        <div class="header">
-                            <img src="./image/logo-full-ifg.png" alt="ifg logo completo">
-                        </div>
-
-                        <div>
-                            <table>
-                                <tr>
-                                    <th colspan="2">ATENDIMENTO EXTRACLASSE</th>
-                                </tr>
-                                <tr>
-                                    <td>Nome do Docente:</td>
-                                    <td>asdasdasd</td>
-                                </tr>
-                                <tr>
-                                    <td>Local:</td>
-                                    <td>Sala dos Professores IFG Luziânia</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="merged" style="text-align: left; border-bottom:none;">Nas datas e horários abaixo reuniram-se docente e discentes referidos para atendimento extraclasse (reforço escolar, atendimento de dependência, orientação de trabalhos e pesquisas, entre outros).</td>
-                                </tr>
-                            </table>
-
-                            <table>
-                                <thead>
+                            <div>
+                                <table>
                                     <tr>
-                                        <th colspan="4">DADOS DOS ESTUDANTES</th>
-                                        <th colspan="3">DADOS DO ATENDIMENTO</th>
-                                        <th rowspan="2">Frequência</th>
+                                        <td colspan="2">ATENDIMENTO EXTRACLASSE</td>
                                     </tr>
                                     <tr>
-                                        <th>n.º</th>
-                                        <th>Matrícula</th>
-                                        <th>Estudante</th>
-                                        <th>Disciplina</th>
-                                        <th>Assunto</th>
-                                        <th>Data</th>
-                                        <th>Hora</th>
+                                        <th>Nome do Docente:</th>
+                                        <td>asdasdasd</td>
                                     </tr>
-                                </thead>
-                                <tbody>
                                     <tr>
-                                        <td>1.</td>
-                                        <td>20241080080014</td>
-                                        <td>Kricys ...</td>
-                                        <td>Sociologia</td>
-                                        <td>Frequência nas aulas de Sábado por motivos religiosos.</td>
-                                        <td>20/03/2024</td>
-                                        <td>19:00:00</td>
-                                        <td></td>
+                                        <th>Local:</th>
+                                        <td>Sala dos Professores IFG Luziânia</td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                    <tr>
+                                        <td colspan="2" class="merged" style="text-align: left; border-bottom:none;">Nas datas e horários abaixo reuniram-se docente e discentes referidos para atendimento extraclasse (reforço escolar, atendimento de dependência, orientação de trabalhos e pesquisas, entre outros).</td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4">DADOS DOS ESTUDANTES</th>
+                                            <th colspan="5">DADOS DO ATENDIMENTO</th>
+
+                                        </tr>
+                                        <tr>
+                                            <th>n.º</th>
+                                            <th>Matrícula</th>
+                                            <th>Estudante</th>
+                                            <th>Disciplina</th>
+                                            <th>Assunto</th>
+                                            <th>Data</th>
+                                            <th>Hora</th>
+                                            <th>Frequência</th>
+                                            <th>imprevisto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // foreach(){
+                                        ?>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>20241080080014</td>
+                                            <td>Kricys ...</td>
+                                            <td>Sociologia</td>
+                                            <td>Frequência nas aulas de Sábado por motivos religiosos.</td>
+                                            <td>20/03/2024</td>
+                                            <td>19:00:00</td>
+                                            <td>f/p</td>
+                                            <td>bla bla bla bla bla bla bla</td>
+                                        </tr>
+                                        <?php
+                                        // }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                            <div class="footer">
+                                <div class="footer-institute">Instituto Federal de Educação, Ciência e Tecnologia de Goiás</div>
+                                <div class="footer-address">Rua São Bartolomeu, 5/N, 5/N, Vila Esperança, LUZIÂNIA / GO, CEP 72.811-580</div>
+                                <div class="footer-contact">(61) 3142-1231 (ramal: 231)</div>
+                            </div>
                         </div>
 
 
-
-                        <div class="footer">
-                            <div class="footer-institute">Instituto Federal de Educação, Ciência e Tecnologia de Goiás</div>
-                            <div class="footer-address">Rua São Bartolomeu, 5/N, 5/N, Vila Esperança, LUZIÂNIA / GO, CEP 72.811-580</div>
-                            <div class="footer-contact">(61) 3142-1231 (ramal: 231)</div>
-                        </div>
                     </div>
-
-
                 </div>
                 <div class="button-container">
                     <button id="download-pdf">Baixar</button>

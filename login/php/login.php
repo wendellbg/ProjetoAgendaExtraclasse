@@ -1,8 +1,7 @@
 <?php
 session_start();
-// alterar isso futuramente quando tiver banco de dados
-/* fake login com os dados dentro do data.json */
-$filePath = '../data/data.json';
+$filePath = '../../global/data/data.json';
+
 $data = [];
 if (file_exists($filePath)) {
     $json = file_get_contents($filePath);

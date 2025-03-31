@@ -43,7 +43,6 @@
                     color: evento.data.color, // Cor do evento
                     id: evento.data.url,
                     display: 'list-item',
-                    constraint: evento.data.constraint, // Restrições, se houver
                 })) : [];
 
                 return [...feriados, ...eventosAulas];
@@ -75,7 +74,6 @@
                                 window.location.href = url;
                             }
                         }
-
                     },
 
                 }

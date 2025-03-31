@@ -6,7 +6,6 @@ if (isset($_SESSION['tipo_vinculo'])) {
         <div class="img-container">
             <img src="/assets/img/logo_ifg.png" alt="logo ifg">
         </div>
-
         <div class="bell-container">
             <button id="button-bell">
                 <i class="fa-solid fa-bell fa-2xl"></i>
@@ -14,7 +13,7 @@ if (isset($_SESSION['tipo_vinculo'])) {
             <div class="notify">
                 <!-- cards que vão receber a notificação -->
                 <div class="card-notify">
-                    <p class="paragraph"><?php echo "Notificação placeholder"; ?></p>
+                    <p class="paragraph"><?php echo "Notificação placeholder"; ?> <button >deletar</button></p>
                 </div>
 
             </div>
@@ -51,7 +50,11 @@ if (isset($_SESSION['tipo_vinculo'])) {
             <li><a href="/pages/home" class="subtitle">Home</a></li>
             <li><a href="/pages/perfil" class="subtitle">Perfil</a></li>
             <li><a href="/pages/cad-professor" class="subtitle">Cadastro</a></li>
-            <li><a href="/pages/mediador" class="subtitle">Mediador</a></li>
+            <?php
+            if (true) {
+            ?>
+                <li><a href="/pages/mediador" class="subtitle">Mediador</a></li>
+            <?php } ?>
             <li><a href="/pages/calendario" class="subtitle">Calendario</a></li>
             <li><a href="/pages/aluno" class="subtitle">Aluno</a></li>
             <li><a href="/pages/professor" class="subtitle">Professor</a></li>

@@ -2,14 +2,26 @@
 @import "../../../global/header/css/header.css";
 
 .ata-container {
-  width: 900px;
-  height: fit-content;
+  width: fit-content;
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
   align-items: center;
+}
+
+.scrool {
+  overflow-y: scroll;
+  height: 570px;
+}
+.scrool::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrool::-webkit-scrollbar-thumb {
+  background: #898989;
+  border-radius: 30px;
 }
 
 .button-container {
@@ -40,7 +52,7 @@
   color: #333;
   font-weight: 400;
   font-size: 12px;
-  width: 794px;
+  width: 1000px;
   height: fit-content;
   text-align: center;
   padding: 20px;
@@ -59,21 +71,12 @@
 }
 
 .header > img {
-  width:100%;
+  width: 100%;
 }
-
-.header-title {
-  width: 300px;
-  font-size: 14px;
-  text-align: left;
-  font-weight: bold;
-}
-
 
 table {
   width: 100%;
   border-collapse: collapse;
-  
 }
 
 th,

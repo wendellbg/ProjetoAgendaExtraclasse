@@ -6,6 +6,13 @@
   flex-direction: column;
   gap: 50px;
 }
+
+.ata-btn > a {
+  color: #000;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .form-mediador {
   display: grid;
   width: 600px;
@@ -53,7 +60,7 @@ table {
   width: 90%;
   box-shadow: var(--shadow);
 }
-caption{
+caption {
   background: var(--green-primary);
   color: var(--gray-primary);
   text-align: center;
