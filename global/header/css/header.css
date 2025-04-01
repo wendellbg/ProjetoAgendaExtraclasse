@@ -107,13 +107,13 @@ nav {
 .navigation-container li {
   display: flex;
 }
-.navigation-container li>a {
+.navigation-container li > a {
   width: 50%;
   color: var(--gray-primary);
   border-bottom: 3px solid var(--gray-primary);
   padding: 5px;
 }
-.navigation-container li:hover>a {
+.navigation-container li:hover > a {
   width: 100%;
   transition: 0.5s;
 }
@@ -121,7 +121,8 @@ nav {
   width: 220px;
   margin: 0 auto;
 }
-.button-exit-container #suap-logout-button {
+
+.button-exit-container > #suap-logout-button {
   width: 100%;
   cursor: pointer;
   border-radius: 4px;
@@ -131,8 +132,10 @@ nav {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  color: #000;
   background: var(--gray-primary);
 }
+
 .button-exit-container #suap-logout-button:hover {
   background: var(--gray-secondary);
   color: #fff;

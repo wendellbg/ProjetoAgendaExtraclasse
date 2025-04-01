@@ -107,7 +107,7 @@
 
         var form = document.createElement("form");
         form.method = "POST";
-        form.action = "./php/gerar_pdf.php"; // Certifique-se que este script está correto
+        form.action = "./php/gerar_pdf.php"; 
 
         var input = document.createElement("input");
         input.type = "hidden";

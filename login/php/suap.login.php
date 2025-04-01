@@ -1,46 +1,50 @@
 <?php
 session_start();
 //alterar isso futuramente quando tiver banco de dados
-$filePath = '../../global/data/data.json';
-$data = [];
-if (file_exists($filePath)) {
-    $json = file_get_contents($filePath);
-    $data = json_decode($json, true) ?? [];
+$filePath = '../model/login-bd.php';
+include $filePath;
+$login = new Login();
+if (!file_exists($filePath)) {
+    die("caminho invalido!");
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($data['matricula'] !== $_POST['matricula']) {
-        $updatedData = [
-            'data_nascimento' => $_POST['data_nascimento'] ?? $data['data_nascimento'],
-            'email' => $_POST['email'] ?? $data['email'],
-            'matricula' => $_POST['matricula'] ?? $data['matricula'],
-            'nome_usual' => $_POST['nome_usual'] ?? $data['nome_usual'],
-            'tipo_vinculo' => $_POST['tipo_vinculo'] ?? $data['tipo_vinculo'],
-            'url_foto_75x100' => $_POST['url_foto_75x100'] ?? $data['url_foto_75x100'],
-            'url_foto_150x200' => $_POST['url_foto_150x200'] ?? $data['url_foto_150x200'],
-            'curso' => $_POST['curso'] ?? $data['curso'],
-            'nome' => $_POST['nome'] ?? $data['nome'],
-            'senha' => $_POST['senha'] ?? $data['senha'],
-            'telefone' => $_POST['telefone'] ?? $data['telefone'],
-        ];
+$data = $login->getMAtricula($_POST['matricula'] ?? '');
 
+if (!empty($_POST)) {
+    $matricula = $_POST['matricula'] ?? null;
+    $tipoVinculo = $_POST['tipo_vinculo'] ?? null;
 
-
-        if (isset($_POST['tipo_vinculo'])) {
-            $_SESSION['tipo_vinculo'] = $_POST['tipo_vinculo'];
-        }
+    if ($data !== $matricula) {
         try {
-            file_put_contents($filePath, json_encode($updatedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-            $message = "Dados atualizados com sucesso!";
+            $login->post(
+                $_POST['data_nascimento'] ?? '',
+                $_POST['email'] ?? '',
+                $matricula,
+                $_POST['nome_usual'] ?? '',
+                $tipoVinculo,
+                $_POST['url_foto_75x100'] ?? '',
+                $_POST['url_foto_150x200'] ?? '',
+                $_POST['curso'] ?? '',
+                $_POST['nome'] ?? ''
+            );
+
+            $_SESSION['message'] = "Dados atualizados com sucesso!";
+            header('Location: /pages/perfil');
+            exit; // Garante que o script pare aqui
+
         } catch (Exception $e) {
-            $message = "Erro ao salvar os dados: " . $e->getMessage();
+            $_SESSION['message'] = "Erro ao salvar os dados: " . $e->getMessage();
+            header('Location: /pages/perfil');
+            exit;
         }
-        $data = $updatedData;
-        header('Location: /pages/perfil');
     } else {
-        if (isset($_POST['tipo_vinculo'])) {
-            $_SESSION['tipo_vinculo'] = $_POST['tipo_vinculo'];
+        if (!empty($tipoVinculo) && !empty($matricula)) {
+            $_SESSION['tipo_vinculo'] = $tipoVinculo;
+            $_SESSION['matricula'] = $matricula;
+            header('Location: /pages/home');
+            exit;
         }
-        header('Location: /pages/home');
     }
 }
+
+printf($message);

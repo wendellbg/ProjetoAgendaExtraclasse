@@ -12,10 +12,12 @@
     <div class="container">
         <!-- alterar futuramente pro banco de dados -->
         <?php
-        $filePath = '../../global/data/data.json';
+        $filePath = '../../login/model/login-bd.php';
+        require($filePath);
+        $login = new Login();
         if (file_exists($filePath)) {
-            $json = file_get_contents($filePath);
-            $data = json_decode($json, true);
+            $data = $login->getUser($_SESSION['matricula']);
+            var_dump($data['nome_usual']);
         } else {
             $data = [
                 'nome_usual' => '',
@@ -79,7 +81,7 @@
                             type="password"
                             id="senha"
                             name="senha"
-                            value="<?= htmlspecialchars($data['senha'] ?? '') ?>">
+                            value="">
                     </label>
 
                     <label for="telefone">

@@ -35,9 +35,9 @@
 
     <!-- login pelo suap -->
     <script>
-        var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
-        suap.init();
         $(document).ready(function() {
+            var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
+            suap.init();
             $("#suap-login-button").attr('href', suap.getLoginURL());
             if (suap.isAuthenticated()) {
                 $('.is-authenticated').removeClass("is-hidden");
@@ -45,48 +45,46 @@
                 $('#validade_token').text(suap.getToken().getExpirationTime());
                 $("#escopos_autorizados").text(suap.getToken().getScope());
                 $("#escopos").val(suap.getToken().getScope());
-                const accessToken = suap.getToken().getValue()
+
+                const accessToken = suap.getToken().getValue();
+                console.log(accessToken);
                 if (!accessToken) {
                     console.error('Token de acesso não encontrado na URL.');
-                } else {
-                    // Fazer a requisição com jQuery usando o token
-                    $.ajax({
-                        url: 'https://suap.ifg.edu.br/api/v2/minhas-informacoes/meus-dados/',
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer ' + accessToken,
-                            'Accept': 'application/json'
-                        },
-                        success: function(data) {
-                            const dataFilter = (data) => {
-                                objFilter = {
-                                    data_nascimento: data.data_nascimento,
-                                    email: data.email,
-                                    matricula: data.matricula,
-                                    nome_usual: data.nome_usual,
-                                    tipo_vinculo: data.tipo_vinculo,
-                                    url_foto_75x100: data.url_foto_75x100,
-                                    url_foto_150x200: data.url_foto_150x200,
-                                    curso: data.vinculo.curso,
-                                    nome: data.vinculo.nome,
-
-                                };
-                                return objFilter;
-                            };
-
-                            saveUserData(dataFilter(data));
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error('Erro na requisição:', textStatus, errorThrown);
-                        }
-                    });
                 }
-            } else {
-                $('.is-anonymous').removeClass("is-hidden");
+                $.ajax({
+                    url: 'https://suap.ifg.edu.br/api/v2/minhas-informacoes/meus-dados/',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken,
+                        'Accept': 'application/json'
+                    },
+                    success: function(data) {
+                        const dataFilter = (data) => {
+                            objFilter = {
+                                data_nascimento: data.data_nascimento,
+                                email: data.email,
+                                matricula: data.matricula,
+                                nome_usual: data.nome_usual,
+                                tipo_vinculo: data.tipo_vinculo,
+                                url_foto_75x100: data.url_foto_75x100,
+                                url_foto_150x200: data.url_foto_150x200,
+                                curso: data.vinculo.curso,
+                                nome: data.vinculo.nome,
+
+                            };
+                            return objFilter;
+                        };
+
+                        saveUserData(dataFilter(data));
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Erro na requisição:', textStatus, errorThrown);
+                    }
+                });
             }
         });
-        // enviar os dados do suap pro arquivo user.data.php pra futuramente guardar no banco de dados de login
-        const saveUserData = (data) => {
+
+        function saveUserData(data) {
             $.ajax({
                 url: "./login/php/suap.login.php",
                 method: "POST",

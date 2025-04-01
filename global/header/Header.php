@@ -13,7 +13,7 @@ if (isset($_SESSION['tipo_vinculo'])) {
             <div class="notify">
                 <!-- cards que vão receber a notificação -->
                 <div class="card-notify">
-                    <p class="paragraph"><?php echo "Notificação placeholder"; ?> <button >deletar</button></p>
+                    <p class="paragraph"><?php echo "Notificação placeholder"; ?> <button>deletar</button></p>
                 </div>
 
             </div>
@@ -92,17 +92,12 @@ if (isset($_SESSION['tipo_vinculo'])) {
     var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
     suap.init();
 
-    function deletarCookie(nome) {
-        document.cookie = nome + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-    }
-
     $("#suap-logout-button").click(function() {
         if (suap.isAuthenticated()) {
-            deletarCookie('PHPSESSID')
             suap.logout()
+            window.location.href = '../../login/php/logout.php'
         } else {
-            deletarCookie('PHPSESSID')
-            window.location.href = '/'
+            window.location.href = '../../login/php/logout.php'
         }
     });
 </script>
