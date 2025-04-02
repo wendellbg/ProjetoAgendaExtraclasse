@@ -12,22 +12,7 @@
     <div class="container">
         <!-- alterar futuramente pro banco de dados -->
         <?php
-        $filePath = '../../login/model/login-bd.php';
-        require($filePath);
-        $login = new Login();
-        if (file_exists($filePath)) {
-            $data = $login->getUser($_SESSION['matricula']);
-            var_dump($data['nome_usual']);
-        } else {
-            $data = [
-                'nome_usual' => '',
-                'email' => '',
-                'senha' => '',
-                'matricula' => '',
-                'curso' => '',
-                'telefone' => ''
-            ];
-        }
+       
         ?>
         <?php include '../../global/header/Header.php' ?>
         <Main class="Main-container">

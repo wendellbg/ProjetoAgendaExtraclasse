@@ -22,28 +22,18 @@ if (isset($_SESSION['tipo_vinculo'])) {
     <nav>
         <div class="user-container">
             <?php
-
-
-            $filePath = '../../global/data/data.json';
-
+            $filePath = '../../login/model/login-bd.php';
+            require($filePath);
+            $login = new Login();
 
             if (file_exists($filePath)) {
-
-                $jsonData = file_get_contents($filePath);
-
-                $userData = json_decode($jsonData, true);
-            } else {
-
-                $userData = [
-                    'nome_usual' => 'Usuário Desconhecido',
-                    'url_foto_150x200' => '../../assets/img/noImage.png'
-                ];
-            }
+                $data  = $login->getUser($_SESSION['matricula']);
+            } 
             ?>
 
 
-            <p class="paragraph"><?php echo htmlspecialchars($userData['nome_usual']); ?></p>
-            <img src="<?php echo "https://suap.ifg.edu.br/" . htmlspecialchars($userData['url_foto_150x200']) ?>" alt="user-image">
+            <p class="paragraph"><?php echo htmlspecialchars($data['nome_usual']); ?></p>
+            <img src="<?php echo "https://suap.ifg.edu.br/" . htmlspecialchars($data['url_foto_150x200']) ?>" alt="user-image">
         </div>
         <!-- adicionar mais links pras paginas conforme for colocando mais -->
         <ul class="navigation-container">
@@ -95,7 +85,7 @@ if (isset($_SESSION['tipo_vinculo'])) {
     function deletarCookie(nome) {
         document.cookie = nome + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     }
-    
+
     $("#suap-logout-button").click(function() {
         if (suap.isAuthenticated()) {
             deletarCookie("PHPSESSID");

@@ -12,6 +12,6 @@ require($filePath);
 $login = new Login();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login->put($_POST['senha'], $_POST['telefone'], $_SESSION['matricula']);
+    $login->put($_POST['senha'], $_POST['telefone'], $_SESSION['matricula'], $_POST['nome_usual'], $_POST['email']);
     header("location: /pages/home");
 }

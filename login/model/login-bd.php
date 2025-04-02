@@ -16,13 +16,13 @@ class Login
     }
 
 
-    public function put($senha, $telefone, $matricula)
+    public function put($senha, $telefone, $matricula, $nome, $email)
     {
         require('../../../global/bd/config.php');
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("UPDATE tabela_login SET senha = ?, telefone = ? WHERE matricula = ?");
-        $stmt->bind_param("sss", $senhaHash, $telefone, $matricula);
+        $stmt = $conn->prepare("UPDATE tabela_login SET senha = ?, telefone = ?, nome_usual = ?, email = ? WHERE matricula = ?");
+        $stmt->bind_param("sssss", $senhaHash, $telefone, $nome, $email, $matricula);
 
         if (!$stmt->execute()) {
             die("Erro ao atualizar dados: " . $stmt->error);
@@ -33,8 +33,6 @@ class Login
     public function getMatricula($matricula)
     {
         require('../../global/bd/config.php');
-
-        // Usa Prepared Statements para evitar SQL Injection
         $stmt = $conn->prepare("SELECT matricula FROM tabela_login WHERE matricula = ?");
         $stmt->bind_param("s", $matricula);
         $stmt->execute();
@@ -50,9 +48,9 @@ class Login
 
     public function getUser($matricula)
     {
-        require_once('../../global/bd/config.php'); // Garante que a conexão seja incluída apenas uma vez
+        require_once('../../global/bd/config.php'); 
 
-        $stmt = $conn->prepare("SELECT telefone, senha ,curso ,matricula ,email ,nome_usual FROM tabela_login  WHERE matricula = ?");
+        $stmt = $conn->prepare("SELECT * FROM tabela_login  WHERE matricula = ?");
         $stmt->bind_param("s", $matricula);
         if (!$stmt) {
             return false;
@@ -70,7 +68,8 @@ class Login
             'senha' => $row->senha,
             'matricula' => $row->matricula,
             'curso' => $row->curso,
-            'telefone' => $row->telefone
+            'telefone' => $row->telefone,
+            'url_foto_150x200' => $row->url_foto_75x100,
         ];
         return $data;
     }
