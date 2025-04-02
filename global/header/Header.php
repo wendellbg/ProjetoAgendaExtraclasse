@@ -92,11 +92,16 @@ if (isset($_SESSION['tipo_vinculo'])) {
     var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
     suap.init();
 
+    function deletarCookie(nome) {
+        document.cookie = nome + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    }
+    
     $("#suap-logout-button").click(function() {
         if (suap.isAuthenticated()) {
-            suap.logout()
-            window.location.href = '../../login/php/logout.php'
+            deletarCookie("PHPSESSID");
+            suap.logout();
         } else {
+            // deletarCookie('PHPSESSID')
             window.location.href = '../../login/php/logout.php'
         }
     });

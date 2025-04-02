@@ -81,22 +81,22 @@
                         console.error('Erro na requisição:', textStatus, errorThrown);
                     }
                 });
+
+                function saveUserData(data) {
+                    $.ajax({
+                        url: "./login/php/suap.login.php",
+                        method: "POST",
+                        data: data,
+                        success: function(response) {
+                            window.location.href = "/pages/perfil";
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error("Erro ao enviar os dados:", textStatus, errorThrown);
+                        },
+                    });
+                };
             }
         });
-
-        function saveUserData(data) {
-            $.ajax({
-                url: "./login/php/suap.login.php",
-                method: "POST",
-                data: data,
-                success: function(response) {
-                    window.location.href = "/pages/perfil";
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Erro ao enviar os dados:", textStatus, errorThrown);
-                },
-            });
-        };
     </script>
 
 </body>

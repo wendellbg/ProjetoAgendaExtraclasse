@@ -1,6 +1,9 @@
 <?php
 session_start();
-unset($_SESSION['tipo_vinculo']);
-session_destroy();
-header("location: /");
-exit;
+if ($_SESSION) {
+    unset($_SESSION['tipo_vinculo']);
+    unset($_SESSION['matricula']);
+    session_destroy();
+    header("location: /");
+    exit;
+}

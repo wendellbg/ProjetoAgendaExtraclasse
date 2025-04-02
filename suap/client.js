@@ -16,10 +16,10 @@ var Token = function (value, expirationTimeInSeconds, scope) {
 
   // Cria os cookies para o token, seu momento da expiração e seus escopos.
 
-  if (!Cookies.get('suapToken')) {
-    Cookies.set('suapToken', value, { expires: finishTime});
+  if (!Cookies.get("suapToken")) {
+    Cookies.set("suapToken", value, { expires: finishTime });
   } else {
-    value = Cookies.get('suapToken');
+    value = Cookies.get("suapToken");
   }
   if (!Cookies.get("suapTokenExpirationTime")) {
     Cookies.set("suapTokenExpirationTime", finishTime, { expires: finishTime });
@@ -61,7 +61,6 @@ var Token = function (value, expirationTimeInSeconds, scope) {
     }
   };
 };
-
 
 /**
  * Classe principal do SDK e seu construtor, que inicializa os principais atributos.
@@ -227,7 +226,7 @@ var SuapClient = function (authHost, clientID, redirectURI, scope) {
       type: "POST",
       success: function (response) {
         token.revoke();
-        window.location = redirectURI;
+        window.location.href = "../login/php/logout.php";
       },
       error: function (response) {
         alert("Falha na comunicação com o SUAP");
