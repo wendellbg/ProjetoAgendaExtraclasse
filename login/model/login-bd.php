@@ -13,6 +13,13 @@ class Login
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         $stmt->bind_param("sssssssss", $dataNascimento, $email, $matricula, $nomeUsual, $tipoVinculo, $foto75x100, $foto150x200, $curso, $nome);
+        $success = $stmt->execute();
+
+
+        $stmt->close();
+        $conn->close();
+
+        return $success;
     }
 
 
@@ -23,8 +30,13 @@ class Login
 
         $stmt = $conn->prepare("UPDATE tabela_login SET senha = ?, telefone = ?, nome_usual = ?, email = ? WHERE matricula = ?");
         $stmt->bind_param("sssss", $senhaHash, $telefone, $nome, $email, $matricula);
+        $success = $stmt->execute();
 
-        if (!$stmt->execute()) {
+
+        $stmt->close();
+        $conn->close();
+
+        if (!$success) {
             die("Erro ao atualizar dados: " . $stmt->error);
         }
     }
@@ -42,13 +54,15 @@ class Login
             $row = $res->fetch_object();
             return $row->matricula;
         }
+        $stmt->close();
+        $conn->close();
 
         return "";
     }
 
     public function getUser($matricula)
     {
-        require_once('../../global/bd/config.php'); 
+        require_once('../../global/bd/config.php');
 
         $stmt = $conn->prepare("SELECT * FROM tabela_login  WHERE matricula = ?");
         $stmt->bind_param("s", $matricula);
@@ -61,6 +75,7 @@ class Login
         $row = $res->fetch_object();
 
         $stmt->close();
+        $conn->close();
 
         $data = [
             'nome_usual' => $row->nome_usual,
@@ -94,6 +109,8 @@ class Login
                 return true;
             }
         }
+        $stmt->close();
+        $conn->close();
         return false;
     }
 }

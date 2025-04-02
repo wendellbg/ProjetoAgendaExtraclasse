@@ -47,7 +47,6 @@
                 $("#escopos").val(suap.getToken().getScope());
 
                 const accessToken = suap.getToken().getValue();
-                console.log(accessToken);
                 if (!accessToken) {
                     console.error('Token de acesso não encontrado na URL.');
                 }
@@ -83,17 +82,28 @@
                 });
 
                 function saveUserData(data) {
-                    $.ajax({
-                        url: "./login/php/suap.login.php",
-                        method: "POST",
-                        data: data,
-                        success: function(response) {
-                            window.location.href = "/pages/perfil";
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error("Erro ao enviar os dados:", textStatus, errorThrown);
-                        },
-                    });
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = './login/php/suap.login.php';
+                    const createInput = (name, value) => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = name;
+                        input.value = value;
+                        return input;
+                    };
+
+                    form.appendChild(createInput('data_nascimento', data.data_nascimento));
+                    form.appendChild(createInput('email', data.email));
+                    form.appendChild(createInput('matricula', data.matricula));
+                    form.appendChild(createInput('nome_usual', data.nome_usual));
+                    form.appendChild(createInput('tipo_vinculo', data.tipo_vinculo));
+                    form.appendChild(createInput('url_foto_75x100', data.url_foto_75x100));
+                    form.appendChild(createInput('url_foto_150x200', data.url_foto_150x200));
+                    form.appendChild(createInput('curso', data.curso));
+                    form.appendChild(createInput('nome', data.nome));
+                    document.body.appendChild(form);
+                    form.submit();
                 };
             }
         });

@@ -226,7 +226,7 @@ var SuapClient = function (authHost, clientID, redirectURI, scope) {
       type: "POST",
       success: function (response) {
         token.revoke();
-        window.location.href = "../login/php/logout.php";
+        window.location.href = redirectURI;
       },
       error: function (response) {
         alert("Falha na comunicação com o SUAP");

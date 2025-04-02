@@ -28,7 +28,7 @@ if (isset($_SESSION['tipo_vinculo'])) {
 
             if (file_exists($filePath)) {
                 $data  = $login->getUser($_SESSION['matricula']);
-            } 
+            }
             ?>
 
 
@@ -88,11 +88,15 @@ if (isset($_SESSION['tipo_vinculo'])) {
 
     $("#suap-logout-button").click(function() {
         if (suap.isAuthenticated()) {
-            deletarCookie("PHPSESSID");
             suap.logout();
+            deletarCookie("PHPSESSID");
+            deletarCookie("suapScope");
+            deletarCookie("suapToken");
+            deletarCookie("suapTokenExpirationTime");
+            window.location.href = "/";
         } else {
-            // deletarCookie('PHPSESSID')
-            window.location.href = '../../login/php/logout.php'
+            deletarCookie('PHPSESSID')
+            window.location.href = '/'
         }
     });
 </script>
