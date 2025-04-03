@@ -60,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'image' => $imageName,
         'dia' => json_decode($dia, true),
         'local' => $local,
-        'horario' => $horario,
-        'nome_professor' => $userData['nome']
+        'nome_professor' => $userData['nome'],
+        'userID' => '1'
     ];
 
     if (file_exists($filePath) && $imageName) {

@@ -7,10 +7,32 @@
   flex-direction: column;
   gap: 50px;
 }
-#my-dialog {
+table {
+  width: 100%;
+}
+
+td,
+tr,
+th {
+  text-align: center;
+  border: 1px solid var(--gray-primary);
+  padding: 10px;
+  color: var(--black);
+}
+
+th {
+  font-weight: bold;
+}
+.ata-btn {
+  color: var(--gray-primary);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.my-dialog {
   align-self: flex-end;
   display: none;
 }
+
 .form-imprevisto {
   display: grid;
   gap: 20px;

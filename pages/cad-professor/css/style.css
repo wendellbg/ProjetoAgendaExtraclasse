@@ -13,27 +13,19 @@
   border-radius: 8px;
   box-shadow: var(--shadow);
   border: 1px solid var(--gray-primary);
-  gap: 50px;
+  gap: 20px;
   padding: 40px;
   grid-template-columns: 1fr 2fr;
   grid-template-areas:
     "materia materia"
-    "horario horario"
     "local_inp local_inp"
     "data curso"
     "foto foto"
     "botao botao";
 }
+
 .materia {
   grid-area: materia;
-  width: 100%;
-  display: grid;
-  gap: 10px;
-}
-
-.horario {
-  grid-area: horario;
-  width: 100%;
   display: grid;
   gap: 10px;
 }
@@ -136,11 +128,6 @@ select {
 input[type="file"] {
   display: none;
 }
-
-.form-dia {
-  display: flex;
-}
-
 .close {
   border: none;
   color: red;
@@ -152,13 +139,31 @@ input[type="file"] {
 #my-dialog {
   display: grid;
   grid-template-rows: auto;
-  grid-template-areas: "title" "input" "data" "botao";
+  grid-template-areas:
+    "title"
+    "input"
+    "data"
+    "botao";
   width: 600px;
   height: fit-content;
   gap: 20px;
   box-shadow: var(--shadow);
   border: 1px solid var(--gray-primary);
   border-radius: 8px;
+}
+
+.input-container {
+  grid-area: input;
+  display: flex;
+  width: 80%;
+  gap: 10px;
+}
+
+.horario {
+  grid-area: horario;
+  width: 100%;
+  display: grid;
+  gap: 10px;
 }
 
 .title-data {
@@ -175,11 +180,11 @@ input[type="file"] {
 }
 
 .form-dia {
-  grid-area: input;
   display: flex;
   padding-left: 20px;
   padding-right: 20px;
   align-items: flex-end;
+  width: 100%;
   gap: 10px;
 }
 
@@ -193,6 +198,8 @@ input[type="file"] {
 }
 #listaDias {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
 }
 .remover-dia {

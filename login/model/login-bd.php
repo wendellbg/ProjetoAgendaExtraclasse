@@ -39,6 +39,7 @@ class Login
         if (!$success) {
             die("Erro ao atualizar dados: " . $stmt->error);
         }
+        return $success;
     }
 
 

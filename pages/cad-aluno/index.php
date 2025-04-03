@@ -1,17 +1,17 @@
 <?php
 
-$filePath = '../../global/data/professor.data.json';
+$filePathTeacher = '../../global/data/professor.data.json';
 
 
-$jsonData = file_get_contents($filePath);
+$jsonData = file_get_contents($filePathTeacher);
 $materias = json_decode($jsonData, true);
-$data = [];
+$dataProf = [];
 if (isset($_GET['id'])) {
     $id = htmlspecialchars($_GET['id']);
     foreach ($materias as $materia) {
 
         if ($materia['id'] == $id) {
-            $data = $materia;
+            $dataProf = $materia;
             break;
         }
     }
@@ -21,15 +21,14 @@ include './php/getNextDays.php';
 $diasFilePath = '../../global/data/calendario/json/Inicio_fim.json';
 $diaJsn = file_get_contents($diasFilePath);
 $diaData = json_decode($diaJsn, true);
-$dias = $data['dia'];
+$dias = array_column($dataProf["dia"], "dia");
 if ($diaData) {
     foreach ($diaData as $Inicio_fim) {
         $dataInicial = $Inicio_fim['inicio_semestre'];
         $dataFinal = $Inicio_fim['fim_semestre'];
     }
 }
-$datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
-
+$datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
 ?>
 
 <!DOCTYPE html>
@@ -50,8 +49,8 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
                     <div class="cad-title">
                         <h3 class="subtitle">
                             <?php
-                            if (!empty($data)) {
-                                echo htmlspecialchars($data['materia']);
+                            if (!empty($dataProf)) {
+                                echo htmlspecialchars($dataProf['materia']);
                             } else {
                                 echo "Sem materia selecionada";
                             }
@@ -68,9 +67,10 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
                             <select name="data" id="" class="paragraph">
                                 <?php
                                 if ($datas) {
+
                                     foreach ($datas as $dia) {
                                 ?>
-                                        <option value=<?php echo $dia ?>><?php echo $dia ?></option>
+                                        <option value=<?php echo $dia['data'] ?>><?php echo $dia['data'] . ' - ' . $dia['dia'] ?></option>
                                 <?php
                                     }
                                 }
@@ -95,8 +95,8 @@ $datas = getNextDaysOfWeek($dias, $dataInicial, $dataFinal);
         const assunto = $("[name='assunto']").val();
         const data = $("[name='data']").val();
         const materia = <?php
-                        echo isset($data['materia'])
-                            ? json_encode($data['materia'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
+                        echo isset($dataProf['materia'])
+                            ? json_encode($dataProf['materia'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
                             : '""';
                         ?>;
         const idMateria = <?php

@@ -38,13 +38,12 @@
             .then(([feriados, aulas]) => {
 
                 let eventosAulas = Array.isArray(aulas) ? aulas.map(evento => ({
-                    title: evento.data.title, // O título vem de "data.title"
-                    start: evento.data.start, // Data de início
-                    color: evento.data.color, // Cor do evento
-                    id: evento.data.url,
+                    title: evento.data.title,
+                    start: evento.data.start,
+                    color: evento.data.color,
+                    groupId: JSON.stringify(evento?.data?.idGroup),
                     display: 'list-item',
                 })) : [];
-
                 return [...feriados, ...eventosAulas];
             })
             .catch(error => {
@@ -54,7 +53,9 @@
     }
 
     $(document).ready(function() {
-        let user = 'aluno';
+        let user = <?php echo isset($_SESSION['tipo_vinculo'])
+                        ? json_encode($_SESSION['tipo_vinculo'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
+                        : '""'; ?>.toLowerCase();
         fetchCalendar().then(eventos => {
 
             let calendarEl = $(".calendar").get(0);
@@ -64,13 +65,14 @@
                     events: eventos,
 
                     eventClick: function(info) {
-                        const eventUrl = info.event.id;
+                        const eventUrl = JSON.parse(info.event.groupId);
+                        console.log(eventUrl)
                         if (eventUrl) {
                             if (user === 'aluno') {
-                                let url = `/pages/aluno/index.php?id=${eventUrl}`
+                                let url = `/pages/aluno/index.php?id=${eventUrl.id_materia}`
                                 window.location.href = url;
                             } else if (user === 'professor') {
-                                let url = `/pages/professor/index.php?id=${eventUrl}`
+                                let url = `/pages/professor/index.php?id=${eventUrl.userID}`
                                 window.location.href = url;
                             }
                         }

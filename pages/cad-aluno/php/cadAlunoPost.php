@@ -4,7 +4,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $assunto = $_POST['assunto'];
     $materia = $_POST['materia'];
     $data = $_POST['data'];
-    $idMateria = $_POST['idMateria'];
+    $idMateria = [
+        "id_materia" => $_POST['idMateria'],
+        "userID" => '1'
+    ];
     $dateTime = DateTime::createFromFormat('d/m/Y', $data);
     if ($dateTime) {
         $dataFormatada = $dateTime->format('Y-m-d');
@@ -14,10 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filePath = '../../../global/data/aluno.data.json';
 
     $dataArr =  [
-        'url' => $idMateria,
+        'idGroup' => $idMateria,
         'title' => $materia,
         'start' => $dataFormatada,
-        'constraint' => 'availableForMeeting',
         'color' => '#257e4a'
     ];
 

@@ -12,5 +12,6 @@ if (empty($_POST) or (empty($_POST['matricula']) or (empty($_POST['senha'])))) {
         header('Location: /pages/home');
     } else {
         printf("usuario ou senha incorretos");
+        printf("<a href='/'>Voltar login</a>");
     }
 }

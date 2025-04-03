@@ -7,6 +7,8 @@
     <title>professor</title>
     <?php include '../../global/php/head.php' ?>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -23,14 +25,10 @@
                         <span class="paragraph">
                             Materia
                         </span>
-                        <input type="text" name="materia" class="paragraph">
-                    </label>
-                    <!-- Horario -->
-                    <label for="" class="horario paragraph">
-                        <span class="paragraph">
-                            Horario
-                        </span>
-                        <input type="text" name="horario" class="paragraph">
+                        <select name="materia" id="materia" class="paragraph" placeholder="selecione uma materia...">
+                            <option value="programação 2">programação 2</option>
+                            <option value="qualidade de software">qualidade de software</option>
+                        </select>
                     </label>
                     <!-- local -->
                     <label for="" class="local paragraph">
@@ -75,16 +73,27 @@
                     </div>
 
                     <form method="post" class="form-dia">
-                        <label for="diaSemana" class="curso">
-                            <span class="paragraph">Dia do atendimento</span>
-                            <select class="paragraph" name="diaSemana" id="diaSemana">
-                                <option value="Segunda">Segunda</option>
-                                <option value="Terça">Terça</option>
-                                <option value="Quarta">Quarta</option>
-                                <option value="Quinta">Quinta</option>
-                                <option value="Sexta">Sexta</option>
-                            </select>
-                        </label>
+                        <div class="input-container">
+                            <label for="diaSemana" class="curso">
+                                <span class="paragraph">Dia do atendimento</span>
+                                <select class="paragraph" name="diaSemana" id="diaSemana">
+                                    <option value="Segunda">Segunda</option>
+                                    <option value="Terça">Terça</option>
+                                    <option value="Quarta">Quarta</option>
+                                    <option value="Quinta">Quinta</option>
+                                    <option value="Sexta">Sexta</option>
+                                    <option value="Sabado">Sabado</option>
+                                </select>
+                            </label>
+                            <!-- Horario -->
+                            <label for="" class="horario paragraph">
+                                <span class="paragraph">
+                                    Horario
+                                </span>
+                                <input type="text" name="horario" id="horario" class="paragraph">
+                            </label>
+                        </div>
+
                         <button type="submit" class="btn-prof"><i class="fa-solid fa-circle-plus"></i></button>
                     </form>
 
@@ -102,6 +111,12 @@
 </body>
 
 <script>
+    $(document).ready(function() {
+        $('#materia').selectize({
+            sortField: 'text'
+        });
+    });
+
     //abrir fechar modal
     $('#open-modal').on('click', () => {
         $('#my-dialog').show(); // Exibe o modal
@@ -113,18 +128,24 @@
     // selecionar dia modal
     let diasSelecionados = [];
 
+
     $('.form-dia').on('submit', function(e) {
         e.preventDefault();
         let diaSelecionado = $('#diaSemana').val();
+        let horario = $("#horario").val();
         if (!diasSelecionados.includes(diaSelecionado)) {
-            diasSelecionados.push(diaSelecionado);
+            diasSelecionados.push({
+                "dia": diaSelecionado,
+                "hora": horario
+            })
             atualizarLista();
         }
     });
 
 
     function removerDia(dia) {
-        diasSelecionados = diasSelecionados.filter(d => d !== dia);
+        diasSelecionados = diasSelecionados.filter(d => d.dia !== dia);
+        console.log(dia);
         atualizarLista();
     }
 
@@ -134,8 +155,8 @@
             diasSelecionados.forEach(dia => {
                 $('#listaDias').append(`
                         <li class="paragraph dia-semana-li">
-                            ${dia} 
-                            <button  class="remover-dia" data-dia="${dia}"><i class="fa-solid fa-xmark"></i></button>
+                            ${dia.dia} ${dia.hora} 
+                            <button  class="remover-dia" data-dia="${dia.dia}"><i class="fa-solid fa-xmark"></i></button>
                         </li>
                     `);
             });
@@ -195,9 +216,8 @@
         let formData = new FormData();
         formData.append("materia", materia);
         formData.append("local", local);
-        formData.append("horario", horario);
         formData.append("curso", curso);
-        formData.append("image", base64); // Se for uma imagem base64, deve ser tratada corretamente.
+        formData.append("image", base64);
         formData.append("dia", JSON.stringify(diasSelecionados));
         formData.append('imageName', file.name)
 
