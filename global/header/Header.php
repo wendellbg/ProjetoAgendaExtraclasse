@@ -1,6 +1,13 @@
 <?php
+$filePath = '../../login/model/login-bd.php';
+require($filePath);
+$login = new Login();
+if (file_exists($filePath)) {
+    $data  = $login->getUser($_SESSION['matricula']);
+    $matricula = $login->getMatricula($_SESSION['matricula']);
+}
+if (!empty($matricula)) {
 
-if (isset($_SESSION['tipo_vinculo'])) {
 ?>
     <header>
         <div class="img-container">
@@ -22,13 +29,9 @@ if (isset($_SESSION['tipo_vinculo'])) {
     <nav>
         <div class="user-container">
             <?php
-            $filePath = '../../login/model/login-bd.php';
-            require($filePath);
-            $login = new Login();
 
-            if (file_exists($filePath)) {
-                $data  = $login->getUser($_SESSION['matricula']);
-            }
+
+
             ?>
 
 
@@ -47,9 +50,6 @@ if (isset($_SESSION['tipo_vinculo'])) {
                 <li><a href="/pages/mediador" class="subtitle">Mediador</a></li>
             <?php } ?>
             <li><a href="/pages/calendario" class="subtitle">Calendario</a></li>
-            <li><a href="/pages/aluno" class="subtitle">Aluno</a></li>
-            <li><a href="/pages/professor" class="subtitle">Professor</a></li>
-            <li><a href="/pages/ata" class="subtitle">ata</a></li>
         </ul>
 
         <div class="button-exit-container">

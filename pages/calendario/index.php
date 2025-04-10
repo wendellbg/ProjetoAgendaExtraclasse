@@ -72,7 +72,7 @@
                                 let url = `/pages/aluno/index.php?id=${eventUrl.id_materia}`
                                 window.location.href = url;
                             } else if (user === 'professor') {
-                                let url = `/pages/professor/index.php?id=${eventUrl.userID}`
+                                let url = `/pages/professor/index.php?id=${eventUrl.id_materia}`
                                 window.location.href = url;
                             }
                         }

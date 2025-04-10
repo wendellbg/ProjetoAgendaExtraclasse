@@ -31,16 +31,29 @@ if (isset($_GET['id'])) {
             <div class="aluno-container">
                 <div class="materia-card-container">
                     <?php foreach ($materias as $materia) {
-                        if ($materia['userID'] === $id) {
+
+                        $IsProfessor =  strtolower($_SESSION['tipo_vinculo']) === "professor";
+                        $IsServidor =   strtolower($_SESSION['tipo_vinculo']) === "servidor";
+
+
+                        $shouldDisplay = false;
+
+                        if ($IsProfessor && $materia['id'] === $id) {
+                            $shouldDisplay = true;
+                        } elseif ($IsServidor && $materia['userID'] === $id) {
+                            $shouldDisplay = true;
+                        }
+
+                        if ($shouldDisplay) {
                     ?>
                             <div class="card">
                                 <div class="title-container subtitle">
                                     <h3><?php echo htmlspecialchars($materia['nome_materia']); ?></h3>
                                     <?php
                                     //arrumar isso aqui depois quando tiver o banco de dados linkado
-                                    echo $materia['Isprofessor']
-                                        ? htmlspecialchars($materia['data'])
-                                        : "<a class='ata-btn' href='/pages/ata/index.php?id=" . htmlspecialchars($materia['id']) . "'>Ver ata</a>";
+                                    echo $IsServidor
+                                        ? "<a class='ata-btn' href='/pages/ata/index.php?id=" . htmlspecialchars($materia['id']) . "'>Ver ata</a>"
+                                        : htmlspecialchars($materia['data']);
                                     ?>
                                 </div>
                                 <div class="body-card paragraph">
@@ -48,37 +61,31 @@ if (isset($_GET['id'])) {
                                         <thead>
                                             <tr>
                                                 <th>Matricula</th>
-                                                <th>Aaluno</th>
+                                                <th>Aluno</th>
                                                 <th>Assunto</th>
                                                 <th>imprevisto</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            foreach ($materia['aluno'] as $alunos) {
-
-
-                                            ?>
-
+                                            <?php foreach ($materia['aluno'] as $alunos) { ?>
                                                 <tr>
                                                     <td><?php echo htmlspecialchars($alunos['matricula']); ?></td>
                                                     <td><?php echo htmlspecialchars($alunos['nome_aluno']); ?></td>
                                                     <td><?php echo htmlspecialchars($alunos['assunto']); ?></td>
                                                     <td><?php echo $alunos['imprevisto'] ? htmlspecialchars($alunos['imprevisto']) : "sem imprevisto"; ?></td>
                                                 </tr>
-
-
-                                            <?php
-                                            }
-                                            ?>
-
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
 
                                 <div class="btn-open-modal-container">
                                     <p class="paragraph"><?php echo htmlspecialchars($materia['hora']); ?></p>
-                                    <button class="open-modal btn-enviar subtitle" data-id="<?php echo $materia['id']; ?>">Chamada</button>
+                                    <?php
+                                    echo $IsProfessor
+                                        ? "<button class='open-modal btn-enviar subtitle' data-id='" . $materia['id'] . "'>Chamada</button>"
+                                        : "";
+                                    ?>
                                 </div>
                             </div>
 
@@ -86,9 +93,7 @@ if (isset($_GET['id'])) {
                             <div class="my-dialog" id="modal-<?php echo $materia['id']; ?>">
                                 <form action="" method="post" class="form-imprevisto paragraph">
                                     <h3 class="subtitle">Chamada</h3>
-                                    <?php
-                                    foreach ($materia['aluno'] as $alunos) {
-                                    ?>
+                                    <?php foreach ($materia['aluno'] as $alunos) { ?>
                                         <label for="">
                                             <span><?php echo htmlspecialchars($alunos['nome_aluno']); ?></span>
                                             <select name="chamada[<?php echo $alunos['nome_aluno']; ?>]">
@@ -96,9 +101,7 @@ if (isset($_GET['id'])) {
                                                 <option value="F">F</option>
                                             </select>
                                         </label>
-                                    <?php
-                                    }
-                                    ?>
+                                    <?php } ?>
 
                                     <div class="btn-container">
                                         <button type="button" class="close-dialog close" data-id="<?php echo $materia['id']; ?>">
@@ -109,8 +112,8 @@ if (isset($_GET['id'])) {
                                 </form>
                             </div>
                     <?php
-                        }
-                    }
+                        } // end if shouldDisplay
+                    } // end foreach 
                     ?>
                 </div>
             </div>
