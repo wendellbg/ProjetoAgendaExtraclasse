@@ -20,7 +20,6 @@
             <section class="card-container">
                 <!-- guard -->
                 <?php
-                include '../../global/php/guard.php';
                 $value = ['aluno', 'professor', 'servidor'];
                 guard($value);
                 ?>

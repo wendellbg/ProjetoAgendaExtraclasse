@@ -1,5 +1,6 @@
 <?php
 $filePath = '../../login/model/login-bd.php';
+include '../../global/php/guard.php';
 require($filePath);
 $login = new Login();
 if (file_exists($filePath)) {
@@ -28,12 +29,6 @@ if (!empty($matricula)) {
     </header>
     <nav>
         <div class="user-container">
-            <?php
-
-
-
-            ?>
-
 
             <p class="paragraph"><?php echo htmlspecialchars($data['nome_usual']); ?></p>
 
@@ -41,15 +36,14 @@ if (!empty($matricula)) {
         </div>
         <!-- adicionar mais links pras paginas conforme for colocando mais -->
         <ul class="navigation-container">
-            <li><a href="/pages/home" class="subtitle">Home</a></li>
-            <li><a href="/pages/perfil" class="subtitle">Perfil</a></li>
-            <li><a href="/pages/cad-professor" class="subtitle">Cadastro</a></li>
             <?php
-            if (true) {
+            echo hidePage(['aluno', 'professor', 'servidor']) ? "<li><a href='/pages/home' class='subtitle'>Home</a></li>" : "";
+            echo hidePage(['aluno', 'professor', 'servidor']) ? "<li><a href='/pages/perfil' class='subtitle'>Perfil</a></li>" : "";
+            echo hidePage(['professor', 'servidor']) ? "<li><a href='/pages/cad-professor' class='subtitle'>Cadastro</a></li>" : "";
+            echo hidePage(['servidor']) ? " <li><a href='/pages/mediador' class='subtitle'>Mediador</a></li>" : "";
+            echo hidePage(['aluno', 'professor', 'servidor']) ? "<li><a href='/pages/calendario' class='subtitle'>Calendario</a></li>" : ""
+
             ?>
-                <li><a href="/pages/mediador" class="subtitle">Mediador</a></li>
-            <?php } ?>
-            <li><a href="/pages/calendario" class="subtitle">Calendario</a></li>
         </ul>
 
         <div class="button-exit-container">
