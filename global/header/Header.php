@@ -13,21 +13,24 @@ if (!empty($matricula)) {
     <header>
         <div class="img-container">
             <img src="/assets/img/logo_ifg.png" alt="logo ifg">
+            <div class="mobile-button-container">
+                <button id="button-mobile"><i class="fa-solid fa-bars"></i></button>
+            </div>
         </div>
-        <div class="bell-container">
+        <!-- <div class="bell-container">
             <button id="button-bell">
                 <i class="fa-solid fa-bell fa-2xl"></i>
             </button>
             <div class="notify">
                 <!-- cards que vão receber a notificação -->
-                <div class="card-notify">
-                    <p class="paragraph"><?php echo "Notificação placeholder"; ?> <button>deletar</button></p>
+        <!-- <div class="card-notify">
+                    <p class="paragraph"> placeholder <button>deletar</button></p>
                 </div>
 
             </div>
-        </div>
+        </div>  -->
     </header>
-    <nav>
+    <nav class="mobile">
         <div class="user-container">
 
             <p class="paragraph"><?php echo htmlspecialchars($data['nome_usual']); ?></p>
@@ -94,4 +97,16 @@ if (!empty($matricula)) {
             window.location.href = '/'
         }
     });
+
+    $("#button-mobile").on('click', (e) => {
+        e.stopPropagation();
+        $('.mobile').show();
+    })
+
+    $(document).on('click', (e) => {
+        if (!$(e.target).closest('.mobile').length && !$(e.target).is('#button-mobile')) {
+            $('.mobile').hide();
+        }
+    })
+    
 </script>

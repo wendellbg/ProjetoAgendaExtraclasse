@@ -28,10 +28,30 @@ header {
 .img-container {
   background: #fff;
   width: 240px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--gray-primary);
+  box-shadow: var(--shadow);
 }
 img {
   width: 50px;
   padding: 10px;
+}
+.mobile-button-container {
+  display: none;
+  width: 50px;
+}
+
+#button-mobile {
+  font-size: 16px;
+  cursor: pointer;
+  background: var(--green-primary);
+  border: none;
+  color: var(--gray-primary);
+  border-radius: 4px;
+  padding: 5px 10px;
 }
 
 .bell-container {
@@ -139,4 +159,39 @@ nav {
 .button-exit-container #suap-logout-button:hover {
   background: var(--gray-secondary);
   color: #fff;
+}
+
+@media (max-width: 600px) {
+  .mobile-button-container {
+    display: block;
+  }
+
+  .mobile {
+    display: none;
+    background: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .container {
+    grid-template-columns: auto; /* Main ocupa o espaço restante, nav 240px */
+    grid-template-rows: auto; /* Header no topo e main+nav no restante */
+    grid-template-areas:
+      "header header"
+      "main main";
+  }
+
+  .Main-container {
+    margin: 20px auto;
+    padding-bottom: 20px;
+  }
+
+  header {
+    background: none;
+  }
+  .img-container {
+    width: 100%;
+  }
 }
