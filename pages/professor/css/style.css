@@ -2,7 +2,7 @@
 @import "../../../global/header/css/header.css";
 
 .aluno-container {
-  max-width: 1200px;
+  width: 1200px;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -125,4 +125,24 @@ th {
 }
 .btn-open-modal-container > .btn-enviar {
   padding: 10px 50px;
+}
+
+@media (max-width: 600px) {
+  .aluno-container {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .title-container{
+    flex-direction: column;
+  }
+  .form-imprevisto {
+    width: 450px;
+  }
+
+  .btn-open-modal-container > .btn-enviar {
+    padding: 10px 50px;
+    /* font-size: 14px; */
+  }
 }

@@ -57,7 +57,7 @@ select {
 }
 
 table {
-  width: 90%;
+  width: 1200px;
   box-shadow: var(--shadow);
 }
 caption {
@@ -76,4 +76,14 @@ th {
 td {
   text-align: center;
   border: 1px solid #b9b2b2;
+}
+
+@media (max-width: 1030px) {
+  
+}
+
+@media (max-width: 600px) {
+  .form-mediador {
+    width: 350px;
+  }
 }

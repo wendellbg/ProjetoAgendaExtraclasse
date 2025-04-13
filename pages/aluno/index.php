@@ -37,9 +37,6 @@ if (isset($_GET['id'])) {
         <?php include '../../global/header/Header.php' ?>
         <Main class="Main-container">
             <div class="aluno-container">
-
-
-
                 <div class="materia-card-container">
                     <div class="card">
                         <div class="title-container subtitle">

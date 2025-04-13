@@ -1,10 +1,9 @@
 @import "../../../global/css/variable.css";
 @import "../../../global/header/css/header.css";
-/* grid-template-areas: */
-/* grid-area: nome; */
 
 .container-prof {
   display: flex;
+  flex-wrap: wrap-reverse;
   gap: 50px;
 }
 .form-prof {
@@ -214,4 +213,52 @@ input[type="file"] {
   background: rgb(132, 161, 205, 0.2);
   padding: 5px 10px;
   border-radius: 32px;
+}
+
+@media (max-width: 1030px) {
+  .container-prof {
+    gap: 20px;
+  }
+  #my-dialog {
+    width: 500px;
+    transition: 0.5s;
+  }
+
+  .form-prof {
+    width: 500px;
+  }
+  .img-label {
+    width: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container-prof {
+    margin: 10px auto;
+    gap: 20px;
+  }
+  #my-dialog {
+    width: 350px;
+  }
+  .input-container {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .form-prof {
+    width: 350px;
+    padding: 10px;
+    grid-template-columns: auto;
+    grid-template-areas:
+      "materia "
+      "local_inp "
+      "data "
+      "curso"
+      "foto "
+      "botao ";
+  }
+
+  .img-label {
+    width: 150px;
+  }
 }
