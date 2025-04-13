@@ -9,7 +9,6 @@
   flex-direction: column;
   gap: 50px;
   border: 1px solid var(--gray-primary);
-  
 }
 h3 {
   text-align: center;
@@ -56,4 +55,13 @@ h3 {
 .button-perfil-container .button-perfil:hover {
   background: var(--green-primary);
   color: var(--gray-primary);
+}
+
+@media (max-width: 600px) {
+  .perfil-container {
+    padding: 20px;
+  }
+  .button-perfil-container .button-perfil{
+    padding: 10px 80px;
+  }
 }

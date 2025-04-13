@@ -1,10 +1,6 @@
 @import "../../../global/css/variable.css";
 @import "../../../global/header/css/header.css";
 
-.cadastro-container {
-  width: 100%;
-  display: flex;
-}
 .form-cadastro {
   width: 600px;
   border-radius: 8px;
@@ -26,9 +22,6 @@
 .form-cadastro .cad-input-container {
   display: grid;
   padding: 20px;
-  @media (max-width: 800px) {
-    grid-template-columns: auto;
-  }
   gap: 50px;
 }
 
@@ -41,7 +34,8 @@
   color: var(--black);
 }
 
-.form-cadastro label > input, select {
+.form-cadastro label > input,
+select {
   border: 1px solid var(--gray-primary);
   background: #fff;
   border-radius: 6px;
@@ -64,4 +58,25 @@
 .button-perfil-container .button-perfil:hover {
   background: var(--green-primary);
   color: var(--gray-primary);
+}
+
+@media (max-width: 600px) {
+  .button-perfil-container .button-perfil {
+    padding: 10px 80px;
+    margin: 0 auto;
+  }
+
+  .form-cadastro {
+    width: 350px;
+    border-radius: 8px;
+    gap: 20px;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 120px;
+  }
+  .Main-container {
+    margin: 0 auto;
+  }
 }

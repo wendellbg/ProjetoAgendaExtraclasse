@@ -10,7 +10,7 @@
   height: 90vh;
   color: #070505;
   box-shadow: var(--shadow);
-  padding: 10px;
+  padding: 10px 5px;
   border-radius: 4px;
 }
 
@@ -19,6 +19,25 @@
   font-size: 16px;
   line-height: 1.5;
   border-radius: 4px;
-
   cursor: pointer;
+}
+
+@media (max-width: 1030px) {
+  .Main-container {
+    margin: 0;
+  }
+
+  header {
+    background: none;
+  }
+  .img-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .Main-container {
+    margin: 0;
+    padding: 20px 0;
+  }
 }

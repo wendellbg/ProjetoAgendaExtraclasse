@@ -104,9 +104,12 @@ if (!empty($matricula)) {
     })
 
     $(document).on('click', (e) => {
-        if (!$(e.target).closest('.mobile').length && !$(e.target).is('#button-mobile')) {
+        if (
+            window.innerWidth <= 600 &&
+            !$(e.target).closest('.mobile').length &&
+            !$(e.target).is('#button-mobile')
+        ) {
             $('.mobile').hide();
         }
-    })
-    
+    });
 </script>

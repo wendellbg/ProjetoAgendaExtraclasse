@@ -61,6 +61,11 @@
             let calendarEl = $(".calendar").get(0);
             let calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: "dayGridMonth",
+                    headerToolbar: {
+                        left: 'prev',
+                        center: 'title',
+                        right: 'next'
+                    },
                     locale: "pt-br",
                     events: eventos,
 

@@ -32,7 +32,7 @@ $datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <?php include '../../global/php/head.php' ?>
@@ -43,52 +43,46 @@ $datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
 <body>
     <div class="container">
         <?php include '../../global/header/Header.php' ?>
-        <Main class="Main-container">
-            <div class="cadastro-container">
-                <form method="post" class="form-cadastro">
-                    <div class="cad-title">
-                        <h3 class="subtitle">
+
+        <main class="Main-container">
+            <form method="post" action="" class="form-cadastro">
+                <div class="cad-title">
+                    <h3 class="subtitle">
+                        <?php
+                        if (!empty($dataProf)) {
+                            echo htmlspecialchars($dataProf['materia']);
+                        } else {
+                            echo "Sem matéria selecionada";
+                        }
+                        ?>
+                    </h3>
+                </div>
+                <div class="cad-input-container">
+                    <label for="assunto">
+                        <span class="paragraph">Assunto</span>
+                        <input class="paragraph" type="text" id="assunto" name="assunto">
+                    </label>
+                    <label for="data">
+                        <span class="paragraph">Data</span>
+                        <select name="data" id="data" class="paragraph">
                             <?php
-                            if (!empty($dataProf)) {
-                                echo htmlspecialchars($dataProf['materia']);
-                            } else {
-                                echo "Sem materia selecionada";
+                            if ($datas) {
+                                foreach ($datas as $dia) {
+                                    echo '<option value="' . $dia['data'] . '">' . $dia['data'] . ' - ' . $dia['dia'] . '</option>';
+                                }
                             }
                             ?>
-                        </h3>
-                    </div>
-                    <div class="cad-input-container">
-                        <label for="assunto">
-                            <span class="paragraph">Assunto</span>
-                            <input class="paragraph" type="text" id="assunto" name="assunto">
-                        </label>
-                        <label for="data">
-                            <span class="paragraph">Data</span>
-                            <select name="data" id="" class="paragraph">
-                                <?php
-                                if ($datas) {
-
-                                    foreach ($datas as $dia) {
-                                ?>
-                                        <option value=<?php echo $dia['data'] ?>><?php echo $dia['data'] . ' - ' . $dia['dia'] ?></option>
-                                <?php
-                                    }
-                                }
-                                ?>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="button-perfil-container">
-                        <input type="submit" value="Agendar" class="button-perfil subtitle">
-                    </div>
-                </form>
-            </div>
-
-        </Main>
+                        </select>
+                    </label>
+                </div>
+                <div class="button-perfil-container">
+                    <input type="submit" value="Agendar" class="button-perfil subtitle">
+                </div>
+            </form>
+        </main>
     </div>
-</body>
 
-<!-- ./php/cadAlunoPost.php -->
+</body>
 <script>
     $('.form-cadastro').on('submit', (e) => {
         e.preventDefault();
@@ -110,7 +104,6 @@ $datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
         formData.append("data", data);
         formData.append("materia", materia);
         formData.append("idMateria", idMateria);
-        // formData.forEach((res) => console.log(res))
 
         $.ajax({
             url: "./php/cadAlunoPost.php",
