@@ -159,22 +159,18 @@ nav {
   color: #fff;
 }
 
-@media (max-width: 1030px) {
+@media (max-width: 1440px) {
   .Main-container {
     margin: 40px 20px;
-  }
-
-  header {
-    background: none;
-  }
-  .img-container {
-    width: 100%;
   }
 }
 
 @media (max-width: 600px) {
   .mobile-button-container {
     display: block;
+  }
+  .img-container {
+    width: 100%;
   }
   .mobile {
     display: none;
@@ -184,6 +180,10 @@ nav {
     top: 70px;
     right: 20px;
     box-shadow: var(--shadow);
+  }
+
+  header {
+    background: none;
   }
 
   .container {
