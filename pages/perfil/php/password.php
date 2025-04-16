@@ -1,5 +1,4 @@
 <?php
-// alterar isso futuramente quando tiver banco de dados
 $filePath = '../../../global/data/data.json';
 $data = [];
 session_start();
@@ -12,5 +11,5 @@ require($filePath);
 $login = new Login();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login->put($_POST['senha'], $_POST['telefone'], $_SESSION['matricula'], $_POST['nome_usual'], $_POST['email']);
+    $login->changePassword($_POST['senha'], $_SESSION['matricula']);
 }

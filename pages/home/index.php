@@ -33,10 +33,9 @@
                 ?>
                     <div class="card">
                         <div class="img-home-container">
-                            <img src="<?= '../../global/data/imagem/' . htmlspecialchars($materia['image']) ?>" alt="imagem da matéria escolhida">
+                            <img src="<?php echo htmlspecialchars($materia['teacherImg']) ?>" alt="imagem professor">
                         </div>
-                        <h3 class="subtitle"><?= htmlspecialchars($materia['materia']) ?></h3>
-                        <p class="paragraph"><?= htmlspecialchars($materia['nome_professor']) ?></p>
+                        <h3 class="subtitle"><?= htmlspecialchars($materia['teacher_name']) ?></h3>
                         <button class="subtitle" onclick="window.location.href='/pages/cad-aluno/index.php?id=<?= $materia['id'] ?>'">Agendar</button>
 
                     </div>

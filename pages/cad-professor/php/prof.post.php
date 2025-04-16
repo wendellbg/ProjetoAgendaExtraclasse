@@ -36,32 +36,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'])) {
     echo "Nenhuma imagem recebida.";
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $materia = $_POST['materia'] ?? '';
+    $materia = $_POST['teacher_name'] ?? '';
     $curso = $_POST['curso'] ?? '';
     $dia = $_POST['dia'] ?? '[]';
     $horario = $_POST['horario'];
     $local = $_POST['local'];
     $id = uniqid();
+    $teacherImg = $_POST['teacherImg'];
+    $teacherID = $_POST['teacherID'];
     $filePath = '../../../global/data/professor.data.json';
-    $fileNamePath = '../../../global/data/data.json';
 
-
-    if (file_exists($fileNamePath)) {
-
-        $jsonData = file_get_contents($fileNamePath);
-
-        $userData = json_decode($jsonData, true);
-    }
 
     $novoDado = [
         'id' => $id,
-        'materia' => $materia,
+        'teacher_name' => $materia,
         'curso' => $curso,
-        'image' => $imageName,
         'dia' => json_decode($dia, true),
+        'teacherImg' => $teacherImg,
         'local' => $local,
-        'nome_professor' => $userData['nome'],
-        'userID' => '1'
+        'teacherID' => $teacherID
     ];
 
     if (file_exists($filePath) && $imageName) {

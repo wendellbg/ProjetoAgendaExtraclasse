@@ -26,10 +26,27 @@ class Login
     public function put($senha, $telefone, $matricula, $nome, $email)
     {
         require('../../../global/bd/config.php');
+
+        $stmt = $conn->prepare("UPDATE tabela_login SET telefone = ?, nome_usual = ?, email = ? WHERE matricula = ?");
+        $stmt->bind_param("ssss", $telefone, $nome, $email, $matricula);
+        $success = $stmt->execute();
+
+
+        $stmt->close();
+        $conn->close();
+
+        if (!$success) {
+            die("Erro ao atualizar dados: " . $stmt->error);
+        }
+        return $success;
+    }
+    public function changePassword($senha, $matricula)
+    {
+        require('../../../global/bd/config.php');
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("UPDATE tabela_login SET senha = ?, telefone = ?, nome_usual = ?, email = ? WHERE matricula = ?");
-        $stmt->bind_param("sssss", $senhaHash, $telefone, $nome, $email, $matricula);
+        $stmt = $conn->prepare("UPDATE tabela_login SET senha = ? WHERE matricula = ?");
+        $stmt->bind_param("ss", $senhaHash, $matricula);
         $success = $stmt->execute();
 
 
@@ -79,6 +96,7 @@ class Login
         $conn->close();
 
         $data = [
+            'id' => $row->id,
             'nome_usual' => $row->nome_usual,
             'email' => $row->email,
             'senha' => $row->senha,

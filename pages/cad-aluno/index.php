@@ -50,7 +50,7 @@ $datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
                     <h3 class="subtitle">
                         <?php
                         if (!empty($dataProf)) {
-                            echo htmlspecialchars($dataProf['materia']);
+                            echo htmlspecialchars($dataProf['teacher_name']);
                         } else {
                             echo "Sem matéria selecionada";
                         }

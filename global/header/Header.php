@@ -35,7 +35,7 @@ if (!empty($matricula)) {
 
             <p class="paragraph"><?php echo htmlspecialchars($data['nome_usual']); ?></p>
 
-            <img src="<?php echo "https://suap.ifg.edu.br/" . htmlspecialchars($data['url_foto_150x200']) ?>" alt="user-image">
+            <img src="<?php echo htmlspecialchars($data['url_foto_150x200']) ?>" alt="user-image">
         </div>
         <!-- adicionar mais links pras paginas conforme for colocando mais -->
         <ul class="navigation-container">
@@ -60,7 +60,7 @@ if (!empty($matricula)) {
 
 ?>
 <!-- script que abre e fecha a notificação -->
-<script>
+<!-- <script>
     let notify = document.querySelector('.notify')
     let verify = false;
     document.getElementById("button-bell").addEventListener('click', () => {
@@ -71,7 +71,7 @@ if (!empty($matricula)) {
             notify.style.display = 'none'
         }
     })
-</script>
+</script> -->
 <script src="../../suap/client.js"></script>
 <script src="../../suap/js.cookie.js"></script>
 <script src="../../suap/settings.js"></script>

@@ -23,12 +23,9 @@
                     <!-- materia -->
                     <label for="" class="materia paragraph">
                         <span class="paragraph">
-                            Materia
+                            Nome professor
                         </span>
-                        <select name="materia" id="materia" class="paragraph" placeholder="selecione uma materia...">
-                            <option value="programação 2">programação 2</option>
-                            <option value="qualidade de software">qualidade de software</option>
-                        </select>
+                        <input type="text" class="paragraph" name="teacher_name" value="<?php echo htmlspecialchars($data['nome_usual']) ?>">
                     </label>
                     <!-- local -->
                     <label for="" class="local paragraph">
@@ -55,12 +52,12 @@
                         </select>
                     </label>
                     <!-- foto -->
-                    <div class="foto">
+                    <!-- <div class="foto">
                         <label for="formFile" id="span_imagem" class="form-label img-label">
                             <div id="img"></div>
                         </label>
                         <input type="file" accept="image/*" name="foto" id="formFile">
-                    </div>
+                    </div> -->
                     <div class="botao-container">
                         <input type="submit" value="Registrar" class="subtitle button-form">
                     </div>
@@ -100,10 +97,6 @@
                     <div class="dia-container">
                         <ul id="listaDias"></ul>
                     </div>
-                    <div class="botao-container">
-                        <!-- <button class="subtitle button-form" id="registrar">Registrar</button> -->
-                    </div>
-
                 </div>
 
         </Main>
@@ -207,19 +200,21 @@
 
     $('.form-prof').on('submit', (e) => {
         e.preventDefault();
-        const materia = $("[name='materia']").val();
+        const teacherName = $("[name='teacher_name']").val();
         const curso = $("[name='curso']").val();
         const local = $("[name='local']").val();
         const horario = $("[name='horario']").val();
-        const base64 = base64String;
+        const teacherID = "<?php echo $data['id']?>"
+        const teacherImg = "<?php echo $data['url_foto_150x200']?>"
 
         let formData = new FormData();
-        formData.append("materia", materia);
+        formData.append("teacher_name", teacherName);
         formData.append("local", local);
         formData.append("curso", curso);
-        formData.append("image", base64);
         formData.append("dia", JSON.stringify(diasSelecionados));
         formData.append('imageName', file.name)
+        formData.append('teacherID', teacherID)
+        formData.append('teacherImg', teacherImg)
 
         // formData.forEach((res) => console.log(res))
 

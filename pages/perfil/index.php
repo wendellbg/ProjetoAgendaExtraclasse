@@ -12,7 +12,7 @@
     <div class="container">
         <!-- alterar futuramente pro banco de dados -->
         <?php
-       
+
         ?>
         <?php include '../../global/header/Header.php' ?>
         <Main class="Main-container">
@@ -59,15 +59,7 @@
                             value="<?= htmlspecialchars($data['curso'] ?? '') ?>" disabled>
                     </label>
 
-                    <label for="senha">
-                        <span class="paragraph">Senha</span>
-                        <input
-                            class="paragraph"
-                            type="password"
-                            id="senha"
-                            name="senha"
-                            value="">
-                    </label>
+
 
                     <label for="telefone">
                         <span class="paragraph">Telefone</span>
@@ -85,9 +77,54 @@
                 </div>
             </form>
 
+
+            <form class="password-container" method="post">
+                <h3 class="subtitle">Escolha uma senha</h3>
+                <label for="senha">
+                    <span class="paragraph">Senha</span>
+                    <input
+                        class="paragraph"
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        value="">
+                </label>
+                <label for="senha">
+                    <span class="paragraph">Repetir senha</span>
+                    <input
+                        class="paragraph"
+                        type="password"
+                        id="senhaRepeat"
+                        name="senhaRepeat"
+                        value="">
+                </label>
+                <div class="button-perfil-container">
+                    <input type="submit" value="atualizar senha" class="button-perfil subtitle">
+                </div>
+            </form>
+
         </Main>
     </div>
 
 </body>
+<!-- ./php/password.php -->
+<script>
+    $('.password-container').on('submit', (e) => {
+        e.preventDefault();
+        let password = $('#senha').val();
+        let repeatPassword = $('#senhaRepeat').val();
+        if (password || repeatPassword) {
+            if (password === repeatPassword) {
+                console.log('passou')
+            } else {
+                console.log('senhas diferentes')
+            }
+        } else {
+            console.log('Digite uma senha')
+        }
+
+
+    })
+</script>
 
 </html>

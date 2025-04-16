@@ -1,6 +1,21 @@
 @import "../../../global/css/variable.css";
 @import "../../../global/header/css/header.css";
 
+.Main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.password-container {
+  max-width: 90%;
+  box-shadow: var(--shadow);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  border: 1px solid var(--gray-primary);
+}
 .perfil-container {
   max-width: 90%;
   box-shadow: var(--shadow);
@@ -10,6 +25,7 @@
   gap: 50px;
   border: 1px solid var(--gray-primary);
 }
+
 h3 {
   text-align: center;
   color: var(--gray-secondary);
@@ -24,16 +40,19 @@ h3 {
   gap: 50px;
 }
 
-.perfil-container .input-perfil-container label {
+.perfil-container .input-perfil-container label,
+.password-container > label {
   width: 100%;
   display: grid;
   gap: 10px;
 }
-.perfil-container .input-perfil-container label > span {
+.perfil-container .input-perfil-container label > span,
+.password-container > span {
   color: var(--black);
 }
 
-.perfil-container label > input {
+.perfil-container label > input,
+.password-container  input {
   border: 1px solid var(--gray-primary);
   background: #fff;
   border-radius: 6px;
@@ -52,6 +71,10 @@ h3 {
   color: var(--black);
   cursor: pointer;
 }
+
+.password-container .button-perfil {
+  padding: 10px 50px;
+}
 .button-perfil-container .button-perfil:hover {
   background: var(--green-primary);
   color: var(--gray-primary);
@@ -61,7 +84,7 @@ h3 {
   .perfil-container {
     padding: 20px;
   }
-  .button-perfil-container .button-perfil{
+  .button-perfil-container .button-perfil {
     padding: 10px 80px;
   }
 }
