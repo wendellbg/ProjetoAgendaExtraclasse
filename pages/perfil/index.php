@@ -16,8 +16,24 @@
         ?>
         <?php include '../../global/header/Header.php' ?>
         <Main class="Main-container">
+
+            <div id="modal-mudar-foto">
+                <div>
+                    
+                </div>
+                <div>
+                    <button>cancelar</button>
+                    <button>alterar</button>
+                </div>
+            </div>
             <form class="perfil-container" method="POST" action="./php/put.php">
                 <h3 class="subtitle">Os dados não serão alterados no SUAP!</h3>
+                <div class="perfil-image-container">
+                    <div class="image-button-container">
+                        <img src="<?php echo $data['image'] ?>" alt="imagem usuario">
+                        <button class="button-image " type="button"><i class="fa-solid fa-pen-to-square"></i></button>
+                    </div>
+                </div>
                 <div class="input-perfil-container">
                     <label for="name">
                         <span class="paragraph">Nome</span>
@@ -115,15 +131,32 @@
         let repeatPassword = $('#senhaRepeat').val();
         if (password || repeatPassword) {
             if (password === repeatPassword) {
-                console.log('passou')
+                let formData = new FormData();
+                formData.append("senha", password);
+                // formData.forEach((res) => console.log(res))
+
+
+                $.ajax({
+                    url: "./php/password.php",
+                    method: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log("Resposta do servidor:", response);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("Erro ao enviar os dados:", textStatus, errorThrown);
+                    },
+                });
+
+
             } else {
                 console.log('senhas diferentes')
             }
         } else {
             console.log('Digite uma senha')
         }
-
-
     })
 </script>
 

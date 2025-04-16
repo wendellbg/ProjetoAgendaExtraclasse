@@ -52,7 +52,7 @@ h3 {
 }
 
 .perfil-container label > input,
-.password-container  input {
+.password-container input {
   border: 1px solid var(--gray-primary);
   background: #fff;
   border-radius: 6px;
@@ -78,6 +78,41 @@ h3 {
 .button-perfil-container .button-perfil:hover {
   background: var(--green-primary);
   color: var(--gray-primary);
+}
+
+.perfil-image-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.image-button-container {
+  position: relative;
+}
+
+.image-button-container > img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+.button-image {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 17px;
+  font-size: 80px;
+  color: #000;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.image-button-container:hover > .button-image {
+  display: block;
+  opacity: 60%;
+}
+.image-button-container:hover > img {
+  opacity: 80%;
 }
 
 @media (max-width: 600px) {

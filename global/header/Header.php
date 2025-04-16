@@ -35,7 +35,7 @@ if (!empty($matricula)) {
 
             <p class="paragraph"><?php echo htmlspecialchars($data['nome_usual']); ?></p>
 
-            <img src="<?php echo htmlspecialchars($data['url_foto_150x200']) ?>" alt="user-image">
+            <img src="<?php echo htmlspecialchars($data['image']) ?>" alt="user-image">
         </div>
         <!-- adicionar mais links pras paginas conforme for colocando mais -->
         <ul class="navigation-container">

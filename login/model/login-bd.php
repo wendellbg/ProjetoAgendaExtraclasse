@@ -4,15 +4,15 @@ class Login
 {
 
 
-    public function post($dataNascimento, $email, $matricula, $nomeUsual, $tipoVinculo, $foto75x100, $foto150x200, $curso, $nome)
+    public function post($dataNascimento, $email, $matricula, $nomeUsual, $tipoVinculo, $image, $curso, $nome)
     {
         require('../../global/bd/config.php');
 
         $stmt = $conn->prepare("INSERT INTO tabela_login 
-        (data_nascimento, email, matricula, nome_usual, tipo_vinculo, url_foto_75x100, url_foto_150x200, curso, nome) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        (data_nascimento, email, matricula, nome_usual, tipo_vinculo, image , curso, nome) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $stmt->bind_param("sssssssss", $dataNascimento, $email, $matricula, $nomeUsual, $tipoVinculo, $foto75x100, $foto150x200, $curso, $nome);
+        $stmt->bind_param("ssssssss", $dataNascimento, $email, $matricula, $nomeUsual, $tipoVinculo, $image, $curso, $nome);
         $success = $stmt->execute();
 
 
@@ -23,7 +23,7 @@ class Login
     }
 
 
-    public function put($senha, $telefone, $matricula, $nome, $email)
+    public function put($telefone, $matricula, $nome, $email)
     {
         require('../../../global/bd/config.php');
 
@@ -103,7 +103,7 @@ class Login
             'matricula' => $row->matricula,
             'curso' => $row->curso,
             'telefone' => $row->telefone,
-            'url_foto_150x200' => $row->url_foto_75x100,
+            'image' => $row->image,
         ];
         return $data;
     }
