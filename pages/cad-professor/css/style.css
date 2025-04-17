@@ -89,44 +89,6 @@ select {
   background: var(--green-primary);
   color: var(--gray-primary);
 }
-
-.foto {
-  grid-area: foto;
-  margin: auto;
-}
-
-.img-label {
-  width: 400px;
-  @media (max-width: 600px) {
-    width: 300px;
-  }
-  aspect-ratio: 16/9;
-  background: #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #aaa;
-  border: 2px dashed currentColor;
-  cursor: pointer;
-  transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
-
-  #img {
-    width: 250px;
-    text-align: center;
-  }
-  .img {
-    width: 100%;
-    object-fit: cover;
-  }
-}
-
-.img-label:hover {
-  color: #999;
-  background: #ccc;
-}
-input[type="file"] {
-  display: none;
-}
 .close {
   border: none;
   color: red;

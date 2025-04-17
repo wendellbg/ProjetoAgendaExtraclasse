@@ -5,6 +5,13 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  position: relative;
+}
+#modal-change-image {
+  display: none;
+  position: absolute;
+  left: 20%;
+  z-index: 100;
 }
 
 .password-container {
@@ -95,6 +102,7 @@ h3 {
   height: 100px;
   object-fit: cover;
 }
+
 .button-image {
   display: none;
   position: absolute;
@@ -115,7 +123,97 @@ h3 {
   opacity: 80%;
 }
 
+#modal-mudar-foto {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  gap: 20px;
+  box-shadow: var(--shadow);
+  width: 600px;
+  padding: 20px;
+}
+.button-modal-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.alterar-button {
+  border: none;
+  padding: 10px 100px;
+  border-radius: 32px;
+  background: var(--green-secondary);
+  color: var(--black);
+  cursor: pointer;
+}
+
+.alterar-button:hover {
+  background: var(--green-primary);
+  color: var(--gray-primary);
+}
+
+.close {
+  border: none;
+  color: red;
+  background: none;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+/* image */
+
+.foto {
+  grid-area: foto;
+  margin: auto;
+}
+
+.img-label {
+  width: 400px;
+  @media (max-width: 600px) {
+    width: 300px;
+  }
+  aspect-ratio: 16/9;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  border: 2px dashed currentColor;
+  cursor: pointer;
+  transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+
+  #img {
+    width: 250px;
+    text-align: center;
+  }
+  .img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.img-label:hover {
+  color: #999;
+  background: #ccc;
+}
+input[type="file"] {
+  display: none;
+}
+@media (max-width: 1024px) {
+  #modal-mudar-foto {
+    width: 400px;
+  }
+}
+
+@media (max-width: 800px) {
+  #modal-change-image {
+    left: 5%;
+  }
+}
+
 @media (max-width: 600px) {
+  #modal-mudar-foto {
+    width: 350px;
+  }
   .perfil-container {
     padding: 20px;
   }

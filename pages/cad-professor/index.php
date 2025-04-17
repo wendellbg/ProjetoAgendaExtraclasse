@@ -161,40 +161,6 @@
             });
         }
     }
-    //imagem
-
-    let base64String = "";
-    let file = ''
-    $('#formFile').on('change', function(event) {
-        file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-
-            reader.addEventListener('load', (e) => {
-                base64String = e.target.result;
-
-                $('#span_imagem').css({
-                    'border': 'none',
-                    'background': 'none'
-                });
-                $('#img').html(base64String ?
-                    `<img src="${base64String}" class="img">` :
-                    '<span class="paragraph">Escolha uma imagem</span>');
-            });
-
-            reader.readAsDataURL(file);
-        } else {
-            console.log('Nenhum arquivo selecionado.');
-        }
-
-    });
-
-    //enviar form
-
-    $('#img').html(base64String ?
-        `<img src="${base64String}" class="img">` :
-        '<span class="paragraph">Escolha uma imagem</span>');
-
 
     // enviar os dados
 

@@ -59,6 +59,24 @@ class Login
         return $success;
     }
 
+    public function changeImage($image, $matricula)
+    {
+        require('../../../global/bd/config.php');
+
+        $stmt = $conn->prepare("UPDATE tabela_login SET image = ? WHERE matricula = ?");
+        $stmt->bind_param("ss", $image, $matricula);
+        $success = $stmt->execute();
+
+
+        $stmt->close();
+        $conn->close();
+
+        if (!$success) {
+            die("Erro ao atualizar dados: " . $stmt->error);
+        }
+        return $success;
+    }
+
 
     public function getMatricula($matricula)
     {

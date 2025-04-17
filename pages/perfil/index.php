@@ -17,21 +17,29 @@
         <?php include '../../global/header/Header.php' ?>
         <Main class="Main-container">
 
-            <div id="modal-mudar-foto">
-                <div>
-                    
-                </div>
-                <div>
-                    <button>cancelar</button>
-                    <button>alterar</button>
+            <div id="modal-change-image">
+                <div id="modal-mudar-foto">
+                    <div class="foto">
+                        <label for="formFile" id="span_imagem" class="form-label img-label">
+                            <div id="img"></div>
+                        </label>
+                        <input type="file" accept="image/*" name="foto" id="formFile">
+                    </div>
+
+                    <div class="button-modal-container">
+                        <button class="close" id="close-button-modal-change-image"><i class="fa-solid fa-circle-xmark"></i></button>
+                        <button class="alterar-button subtitle" id="alterar-image">alterar</button>
+                    </div>
+
                 </div>
             </div>
+
             <form class="perfil-container" method="POST" action="./php/put.php">
                 <h3 class="subtitle">Os dados não serão alterados no SUAP!</h3>
                 <div class="perfil-image-container">
                     <div class="image-button-container">
                         <img src="<?php echo $data['image'] ?>" alt="imagem usuario">
-                        <button class="button-image " type="button"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="button-image" id="button-modal-change-image" type="button"><i class="fa-solid fa-pen-to-square"></i></button>
                     </div>
                 </div>
                 <div class="input-perfil-container">
@@ -156,6 +164,76 @@
             }
         } else {
             console.log('Digite uma senha')
+        }
+    })
+
+    //abrir fechar modal
+    $('#button-modal-change-image').on('click', () => {
+        $('#modal-change-image').show(); // Exibe o modal
+    });
+
+    $('#close-button-modal-change-image').on('click', () => {
+        $('#modal-change-image').hide(); // Esconde o modal
+    });
+
+    //image
+    let base64String = "";
+    let file = ''
+    $('#formFile').on('change', function(event) {
+        file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.addEventListener('load', (e) => {
+                base64String = e.target.result;
+
+                $('#span_imagem').css({
+                    'border': 'none',
+                    'background': 'none'
+                });
+                $('#img').html(base64String ?
+                    `<img src="${base64String}" class="img">` :
+                    '<span class="paragraph">Escolha uma imagem</span>');
+            });
+
+            reader.readAsDataURL(file);
+        } else {
+            console.log('Nenhum arquivo selecionado.');
+        }
+
+    });
+
+    //enviar form
+
+    $('#img').html(base64String ?
+        `<img src="${base64String}" class="img">` :
+        '<span class="paragraph">Escolha uma imagem</span>');
+
+
+
+
+    $("#alterar-image").on('click', () => {
+        if (base64String) {
+
+            let formData = new FormData();
+            formData.append("image", base64String);
+            // formData.forEach((res) => console.log(res))
+
+
+            $.ajax({
+                url: "./php/changeImage.php",
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log("Enviado com sucesso!");
+                    window.location.href = "/pages/perfil";
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Erro ao enviar os dados:", textStatus, errorThrown);
+                },
+            });
         }
     })
 </script>
