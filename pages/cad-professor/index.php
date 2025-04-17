@@ -39,25 +39,7 @@
                         <span class="paragraph">Data</span>
                         <button type="button" id="open-modal" class="btn-prof"><i class="fa-solid fa-circle-plus"></i></button>
                     </div>
-                    <!-- curso -->
-                    <label for="" class="curso">
-                        <span class="paragraph">Curso</span>
-                        <select name="curso" id="" class="paragraph">
-                            <option value="BSI">BSI</option>
-                            <option value="Licenciatura em Química">Licenciatura em Química</option>
-                            <option value="Técnico Integrado em Edificações">Técnico Integrado em Edificações</option>
-                            <option value="Técnico Integrado em Informática pela Internet">Técnico Integrado em Informática pela Internet</option>
-                            <option value="Técnico Integrado em Manutenção e Suporte em Informática">Técnico Integrado em Manutenção e Suporte em Informática</option>
-                            <option value="Técnico Integrado em Química">Técnico Integrado em Química</option>
-                        </select>
-                    </label>
-                    <!-- foto -->
-                    <!-- <div class="foto">
-                        <label for="formFile" id="span_imagem" class="form-label img-label">
-                            <div id="img"></div>
-                        </label>
-                        <input type="file" accept="image/*" name="foto" id="formFile">
-                    </div> -->
+
                     <div class="botao-container">
                         <input type="submit" value="Registrar" class="subtitle button-form">
                     </div>
@@ -170,15 +152,14 @@
         const curso = $("[name='curso']").val();
         const local = $("[name='local']").val();
         const horario = $("[name='horario']").val();
-        const teacherID = "<?php echo $data['id']?>"
-        const teacherImg = "<?php echo $data['url_foto_150x200']?>"
+        const teacherID = "<?php echo $data['id'] ?>"
+        const teacherImg = "<?php echo $data['image'] ?>"
 
         let formData = new FormData();
         formData.append("teacher_name", teacherName);
         formData.append("local", local);
         formData.append("curso", curso);
         formData.append("dia", JSON.stringify(diasSelecionados));
-        formData.append('imageName', file.name)
         formData.append('teacherID', teacherID)
         formData.append('teacherImg', teacherImg)
 

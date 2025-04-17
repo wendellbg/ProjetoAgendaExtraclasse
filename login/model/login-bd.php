@@ -122,6 +122,7 @@ class Login
             'curso' => $row->curso,
             'telefone' => $row->telefone,
             'image' => $row->image,
+            'curso' => $row->curso
         ];
         return $data;
     }

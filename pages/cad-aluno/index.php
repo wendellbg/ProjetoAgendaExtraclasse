@@ -24,7 +24,10 @@ $diaData = json_decode($diaJsn, true);
 $dias = array_column($dataProf["dia"], "dia");
 if ($diaData) {
     foreach ($diaData as $Inicio_fim) {
-        $dataInicial = $Inicio_fim['inicio_semestre'];
+        date_default_timezone_set('America/Sao_Paulo');
+        $dataInicial = date('Y-m-d');
+
+        var_dump($dataInicial);
         $dataFinal = $Inicio_fim['fim_semestre'];
     }
 }
@@ -59,9 +62,26 @@ $datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
                 </div>
                 <div class="cad-input-container">
                     <label for="assunto">
-                        <span class="paragraph">Assunto</span>
+                        <span class="paragraph">Assunto
+                            <br>
+                            <span>Informar qual assunto da disciplina que está com dúvidas.</span>
+                        </span>
                         <input class="paragraph" type="text" id="assunto" name="assunto">
                     </label>
+                    <label for="disciplina">
+                        <span class="paragraph">Disciplina <br>
+                            <span class="paragraph">Informar a disciplina que está com dúvidas.</span>
+                        </span>
+
+                        <input class="paragraph" type="text" id="disciplina" name="disciplina">
+                    </label>
+
+                    <!-- curso -->
+                    <label for="" class="curso">
+                        <span class="paragraph">Curso</span>
+                        <input class="paragraph" type="text" name="curso" value="<?php echo $data['curso'] ?>">
+                    </label>
+                    <!-- data -->
                     <label for="data">
                         <span class="paragraph">Data</span>
                         <select name="data" id="data" class="paragraph">
@@ -73,6 +93,11 @@ $datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
                             }
                             ?>
                         </select>
+                    </label>
+                    <!-- hora -->
+                    <label for="" class="hora">
+                        <span class="paragraph">hora</span>
+                        <input class="paragraph" type="text" name="hora">
                     </label>
                 </div>
                 <div class="button-perfil-container">
@@ -88,11 +113,9 @@ $datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
         e.preventDefault();
         const assunto = $("[name='assunto']").val();
         const data = $("[name='data']").val();
-        const materia = <?php
-                        echo isset($dataProf['materia'])
-                            ? json_encode($dataProf['materia'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
-                            : '""';
-                        ?>;
+        const curso = $("[name='curso']").val();
+        const disciplina = $("[name='disciplina']").val();
+        const hora = $("[name='hora']").val();
         const idMateria = <?php
                             echo isset($id)
                                 ? json_encode($id, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
@@ -101,8 +124,10 @@ $datas =  json_decode(getNextDaysOfWeek($dias, $dataInicial, $dataFinal), true);
 
         let formData = new FormData();
         formData.append("assunto", assunto);
+        formData.append("hora", hora);
+        formData.append("curso", curso);
         formData.append("data", data);
-        formData.append("materia", materia);
+        formData.append("materia", disciplina);
         formData.append("idMateria", idMateria);
 
         $.ajax({

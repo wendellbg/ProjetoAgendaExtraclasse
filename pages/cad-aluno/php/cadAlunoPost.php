@@ -2,8 +2,9 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     var_dump($_POST);
     $assunto = $_POST['assunto'];
-    $materia = $_POST['materia'];
+    $curso = $_POST['curso'];
     $data = $_POST['data'];
+    $hora = $_POST['hora'];
     $idMateria = [
         "id_materia" => $_POST['idMateria'],
         "userID" => '1'
@@ -26,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novoDado = [
         'id' => $id,
         'assunto' => $assunto,
+        'curso' => $curso,
+        'hora' => $hora,
         'data' => $dataArr,
         'imprevisto' => $observacao,
     ];
