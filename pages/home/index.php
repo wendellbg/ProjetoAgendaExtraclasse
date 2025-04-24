@@ -6,7 +6,6 @@
     ?>
     <link rel="stylesheet" href="./css/style.css">
     <title>Home</title>
-
 </head>
 
 <body>
@@ -36,7 +35,17 @@
                             <img src="<?php echo htmlspecialchars($materia['teacherImg']) ?>" alt="imagem professor">
                         </div>
                         <h3 class="subtitle"><?= htmlspecialchars($materia['teacher_name']) ?></h3>
-                        <button class="subtitle" onclick="window.location.href='/pages/cad-aluno/index.php?id=<?= $materia['id'] ?>'">Agendar</button>
+                        <?php
+
+                        $idAgendar = htmlspecialchars($materia['teacherID']);;
+                        echo hidePage(['aluno']) ? "<a class='subtitle' href='/pages/cad-aluno/index.php?id=$idAgendar'>Agendar</a>" :
+                            "<div>
+                            <a href=''>Alterar</a>
+                            <a href='/pages/professor/?id=$idAgendar'>Ver materias</a>
+                        </div>"
+                        ?>
+
+
 
                     </div>
                 <?php

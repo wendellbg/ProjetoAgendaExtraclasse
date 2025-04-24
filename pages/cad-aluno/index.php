@@ -10,7 +10,7 @@ if (isset($_GET['id'])) {
     $id = htmlspecialchars($_GET['id']);
     foreach ($materias as $materia) {
 
-        if ($materia['id'] == $id) {
+        if ($materia['teacherID'] == $id) {
             $dataProf = $materia;
             break;
         }
@@ -26,8 +26,6 @@ if ($diaData) {
     foreach ($diaData as $Inicio_fim) {
         date_default_timezone_set('America/Sao_Paulo');
         $dataInicial = date('Y-m-d');
-
-        var_dump($dataInicial);
         $dataFinal = $Inicio_fim['fim_semestre'];
     }
 }

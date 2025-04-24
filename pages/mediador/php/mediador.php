@@ -42,17 +42,16 @@ function processPDF($filePath)
     $pdf = $parser->parseFile($filePath);
     $text = $pdf->getText();
     $text = mb_convert_encoding($text, 'UTF-8', 'auto');
-    $inicioSemestre = isset($_POST['inicio_semestre']) ? $_POST['inicio_semestre'] : null;
     $fimSemestre = isset($_POST['fim_semestre']) ? $_POST['fim_semestre'] : null;
 
-    if (!$inicioSemestre || !$fimSemestre) {
+    if (!$fimSemestre) {
         echo "Erro: Data de início ou fim do semestre não fornecida.";
         return;
     }
-    extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre);
+    extractCalendarDataToJson($text, $fimSemestre);
 }
 
-function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
+function extractCalendarDataToJson($text, $fimSemestre)
 {
     preg_match_all('/([A-Za-zçÇ]+\/\d{4})(.*?)(?=([A-Za-zçÇ]+\/\d{4})|$)/s', $text, $matches, PREG_SET_ORDER);
 
@@ -138,9 +137,8 @@ function extractCalendarDataToJson($text, $inicioSemestre, $fimSemestre)
 
     // Adicionando informações do semestre
     $jsonInicioFim = [];
-    if ($inicioSemestre && $fimSemestre) {
+    if ($fimSemestre) {
         $jsonInicioFim[] = [
-            'inicio_semestre' => $inicioSemestre,
             'fim_semestre' => $fimSemestre,
         ];
     }

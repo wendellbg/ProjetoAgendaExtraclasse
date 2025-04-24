@@ -23,11 +23,6 @@
                 <!-- formulario -->
                 <form action="./php/mediador.php" method="POST" class="form-mediador" enctype="multipart/form-data">
                     <label for="">
-                        <span class="paragraph">Inicio semestre</span>
-                        <input class="paragraph" type="date" name="inicio_semestre">
-                    </label>
-
-                    <label for="">
                         <span class="paragraph">Fim semestre</span>
                         <input class="paragraph" type="date" name="fim_semestre">
                     </label>
@@ -87,7 +82,7 @@
                         ?>
                             <tr class="paragraph">
                                 <th scope='row'><?php echo htmlspecialchars($userData['email']); ?> </th>
-                                <td><?php echo htmlspecialchars($data['nome_professor']); ?></td>
+                                <td><?php echo htmlspecialchars($data['teacher_name']); ?></td>
                                 <td><?php echo htmlspecialchars($data['local']); ?></td>
 
                                 <!-- Exibe o horário correspondente a cada dia -->
@@ -98,7 +93,7 @@
                                 <td><?php echo isset($horarioPorDia["Sexta"]) ? htmlspecialchars($horarioPorDia["Sexta"]) : ''; ?></td>
 
                                 <td><?php echo htmlspecialchars($userData['telefone']); ?></td>
-                                <td class="ata-btn"><a href="/pages/professor/?id=<?php echo htmlspecialchars($data['userID']); ?>">Ver materias</a></td>
+                                <td class="ata-btn"><a href="/pages/professor/?id=<?php echo htmlspecialchars($data['teacherID']); ?>">Ver materias</a></td>
                             </tr>
                         <?php
                         }
