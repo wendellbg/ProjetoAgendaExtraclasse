@@ -38,10 +38,10 @@
                         <?php
 
                         $idAgendar = htmlspecialchars($materia['teacherID']);;
-                        echo hidePage(['aluno']) ? "<a class='subtitle' href='/pages/cad-aluno/index.php?id=$idAgendar'>Agendar</a>" :
-                            "<div>
-                            <a href=''>Alterar</a>
-                            <a href='/pages/professor/?id=$idAgendar'>Ver materias</a>
+                        echo hidePage(['aluno']) ? " <a class='subtitle card-button' href='/pages/cad-aluno/index.php?id=$idAgendar'>Agendar</a>" :
+                            "<div class='card-buttons_container'>
+                            <a href='' class='card-button subtitle'>Alterar</a>
+                            <a href='/pages/professor/?id=$idAgendar' class='subtitle ver-materias-button'>Ver materias</a>
                         </div>"
                         ?>
 

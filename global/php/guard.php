@@ -12,6 +12,7 @@ function guard($value = [])
     }
 }
 
+
 function hidePage($value = [])
 {
 
@@ -20,5 +21,12 @@ function hidePage($value = [])
     if (!in_array($tipoUsuario, array_map('strtolower', $value))) {
         return false;
     }
+    return true;
+}
+
+function inMediadorPage(){
+    if ($_SERVER['REQUEST_URI'] !== '/pages/mediador/') {
+    return false;
+    } 
     return true;
 }

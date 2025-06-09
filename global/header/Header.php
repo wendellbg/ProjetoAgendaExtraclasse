@@ -13,22 +13,24 @@ if (!empty($matricula)) {
     <header>
         <div class="img-container">
             <img src="/assets/img/logo_ifg.png" alt="logo ifg">
+
+
+
+        </div>
+
+        <div class="nav-top-container">
+            <?php
+            echo inMediadorPage() ? "<div><a href='/pages/ata/' class='subtitle'>ver ata</a></div>" : "";
+            echo inMediadorPage() ? "<div><a href='/pages/grafico' class='subtitle'>ver grafico</a></div>" : "";
+            ?>
+
             <div class="mobile-button-container">
+
                 <button id="button-mobile"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
-        <!-- <div class="bell-container">
-            <button id="button-bell">
-                <i class="fa-solid fa-bell fa-2xl"></i>
-            </button>
-            <div class="notify">
-                <!-- cards que vão receber a notificação -->
-        <!-- <div class="card-notify">
-                    <p class="paragraph"> placeholder <button>deletar</button></p>
-                </div>
 
-            </div>
-        </div>  -->
+
     </header>
     <nav class="mobile">
         <div class="user-container">
@@ -59,19 +61,6 @@ if (!empty($matricula)) {
 }
 
 ?>
-<!-- script que abre e fecha a notificação -->
-<!-- <script>
-    let notify = document.querySelector('.notify')
-    let verify = false;
-    document.getElementById("button-bell").addEventListener('click', () => {
-        verify = !verify
-        if (verify) {
-            notify.style.display = 'flex'
-        } else {
-            notify.style.display = 'none'
-        }
-    })
-</script> -->
 <script src="../../suap/client.js"></script>
 <script src="../../suap/js.cookie.js"></script>
 <script src="../../suap/settings.js"></script>

@@ -21,10 +21,22 @@ header {
   grid-area: header;
   background-color: var(--green-primary);
   align-items: center;
+  display: flex;
+}
+.nav-top-container {
+  display: flex;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 20px;
+}
+.nav-top-container a {
+  color: var(--gray-primary);
 }
 .img-container {
   background: #fff;
-  width: 240px;
+  width: 280px;
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
@@ -51,39 +63,6 @@ img {
   border-radius: 4px;
   padding: 5px 10px;
 }
-
-/* .bell-container {
-  padding-right: 60px;
-}
-.bell-container i {
-  color: var(--gray-primary);
-}
-.bell-container button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.notify {
-  display: none;
-  width: 350px;
-  box-shadow: var(--shadow);
-  background: #fff;
-  position: absolute;
-  top: 90px;
-  right: 10px;
-  color: black;
-  padding: 20px;
-  border-radius: 8px;
-  flex-flow: column;
-  gap: 10px;
-}
-.card-notify {
-  border-bottom: 2px solid var(--black);
-}
-.card-notify p {
-  padding: 10px;
-} */
 
 /* nav */
 nav {
@@ -170,7 +149,11 @@ nav {
     display: block;
   }
   .img-container {
+    display: none;
     width: 100%;
+  }
+  .nav-top-container a {
+    color: var(--black);
   }
   .mobile {
     display: none;
@@ -184,6 +167,8 @@ nav {
 
   header {
     background: none;
+    box-shadow: var(--shadow);
+    padding: 5px 0  ;
   }
 
   .container {

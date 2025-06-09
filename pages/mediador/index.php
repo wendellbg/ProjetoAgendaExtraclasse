@@ -67,7 +67,6 @@
                             <th scope='col'>Quinta</th>
                             <th scope='col'>Sexta</th>
                             <th scope="col">Contato Docente</th>
-                            <th scope="col">ATA</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,7 +92,6 @@
                                 <td><?php echo isset($horarioPorDia["Sexta"]) ? htmlspecialchars($horarioPorDia["Sexta"]) : ''; ?></td>
 
                                 <td><?php echo htmlspecialchars($userData['telefone']); ?></td>
-                                <td class="ata-btn"><a href="/pages/professor/?id=<?php echo htmlspecialchars($data['teacherID']); ?>">Ver materias</a></td>
                             </tr>
                         <?php
                         }

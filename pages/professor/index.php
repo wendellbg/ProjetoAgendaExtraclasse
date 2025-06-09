@@ -51,9 +51,7 @@ if (isset($_GET['id'])) {
                                     <h3><?php echo htmlspecialchars($materia['nome_materia']); ?></h3>
                                     <?php
                                     //arrumar isso aqui depois quando tiver o banco de dados linkado
-                                    echo $IsServidor
-                                        ? "<a class='ata-btn' href='/pages/ata/index.php?id=" . htmlspecialchars($materia['id']) . "'>Ver ata</a>"
-                                        : htmlspecialchars($materia['data']);
+                                    echo  htmlspecialchars($materia['data']);
                                     ?>
                                 </div>
                                 <div class="body-card paragraph">

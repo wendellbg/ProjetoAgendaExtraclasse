@@ -5,8 +5,8 @@
   max-width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 30px;
 }
 .card-container .card {
   width: 100%;
@@ -41,15 +41,46 @@
 .card p {
   color: var(--black);
 }
-.card button {
+.card-button {
   background: var(--green-secondary);
   border: none;
   color: var(--black);
   padding: 5px 30px;
   border-radius: 32px;
   cursor: pointer;
+  transition: 0.5s;
 }
-.card button:hover {
+.card-button:hover {
   background: var(--green-primary);
   color: var(--gray-primary);
+}
+
+.card-buttons_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.ver-materias-button {
+  color: var(--black);
+  padding: 5px;
+  border-bottom: 1px solid var(--black);
+  cursor: pointer;
+  transition: 0.5s;
+}
+.ver-materias-button:hover {
+  color: #727272;
+  border-bottom: 1px solid #727272;
+}
+
+@media (max-width: 600px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, 280px);
+  }
+
+  .card-buttons_container{
+    flex-direction: column;
+    align-items: center;
+  }
+
 }
