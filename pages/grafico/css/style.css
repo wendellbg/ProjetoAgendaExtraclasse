@@ -1,2 +1,13 @@
 @import "../../../global/css/variable.css";
 @import "../../../global/header/css/header.css";
+
+.grafico-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.grafico {
+  width: 1200px;
+  height: 900px;
+}
